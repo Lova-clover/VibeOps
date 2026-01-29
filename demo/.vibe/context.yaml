@@ -1,0 +1,74 @@
+# VibeMemory 샘플 프로젝트 컨텍스트
+# 이 파일은 AI가 모든 세션에서 자동으로 참조합니다
+
+version: "1.0"
+
+project:
+  name: "FinanceAPI"
+  description: |
+    B2B 금융 서비스 백엔드 API
+    - 사용자 인증/인가
+    - 거래 처리
+    - 리포팅
+
+tech_stack:
+  languages:
+    - Python 3.11
+  frameworks:
+    - FastAPI
+    - SQLAlchemy 2.0
+  databases:
+    - PostgreSQL 15
+    - Redis 7
+  infrastructure:
+    - Docker
+    - AWS ECS
+
+requirements:
+  must_have:
+    - "모든 API는 JWT 인증 필수"
+    - "금융 데이터는 AES-256 암호화"
+    - "에러 응답은 RFC 7807 형식"
+    - "API 응답 시간 200ms 이내"
+    - "모든 트랜잭션 로깅"
+  nice_to_have:
+    - "GraphQL 엔드포인트 (Phase 2)"
+    - "실시간 알림 (WebSocket)"
+
+conventions:
+  naming:
+    - "함수명: snake_case"
+    - "클래스명: PascalCase"
+    - "상수: UPPER_SNAKE_CASE"
+    - "파일명: snake_case.py"
+  
+  structure:
+    - "src/api/ - API 엔드포인트"
+    - "src/services/ - 비즈니스 로직"
+    - "src/repositories/ - DB 접근"
+    - "src/models/ - 데이터 모델"
+  
+  patterns:
+    - "Repository 패턴으로 DB 접근 추상화"
+    - "Service Layer에서 비즈니스 로직 처리"
+    - "Dependency Injection 사용"
+    - "Pydantic으로 입력 검증"
+  
+  anti_patterns:
+    - "Controller/API에서 직접 DB 쿼리 금지"
+    - "전역 상태 사용 금지"
+    - "하드코딩된 설정값 금지"
+    - "동기 DB 호출 금지 (async 필수)"
+
+team:
+  members:
+    - name: "김수진"
+      role: "Tech Lead"
+    - name: "이현우"
+      role: "Backend Developer"
+    - name: "박지영"
+      role: "Backend Developer"
+  
+  contacts:
+    security_team: "security@company.com"
+    infra_team: "#infra-support (Slack)"

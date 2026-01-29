@@ -1,0 +1,137 @@
+# VibeMemory 기술/아키텍처 결정 기록
+# ADR(Architecture Decision Records) 경량화 버전
+
+version: "1.0"
+
+decisions:
+  - id: "D001"
+    date: "2026-01-15"
+    title: "인증 방식 선택"
+    status: "accepted"
+    context: |
+      사용자 인증 방식 결정 필요.
+      보안 요구사항 및 확장성 고려.
+    decision: "자체 JWT 인증 (Access + Refresh Token)"
+    alternatives:
+      - name: "OAuth 2.0 (Google, GitHub)"
+        rejected_reason: "보안 정책상 외부 IdP 연동 불가"
+      - name: "Session 기반 인증"
+        rejected_reason: "수평 확장 시 세션 동기화 복잡, 마이크로서비스에 부적합"
+      - name: "API Key 인증"
+        rejected_reason: "사용자별 인증에 부적합, 주로 서비스 간 통신용"
+    consequences:
+      positive:
+        - "무상태 인증으로 수평 확장 용이"
+        - "마이크로서비스 간 토큰 공유 가능"
+        - "클라이언트에서 토큰 관리 자유도"
+      negative:
+        - "토큰 관리 로직 직접 구현 필요"
+        - "토큰 탈취 시 리스크 (만료 전까지 유효)"
+    related_files:
+      - "src/auth/jwt_handler.py"
+      - "src/middleware/auth.py"
+      - "src/api/auth.py"
+    created_by: "김수진"
+
+  - id: "D002"
+    date: "2026-01-16"
+    title: "비밀번호 해싱 알고리즘"
+    status: "accepted"
+    context: |
+      사용자 비밀번호 저장 방식 결정.
+      보안팀 권고사항 반영.
+    decision: "bcrypt, cost factor 12"
+    alternatives:
+      - name: "argon2"
+        rejected_reason: "더 최신이나 일부 환경에서 호환성 이슈"
+      - name: "scrypt"
+        rejected_reason: "메모리 사용량이 높아 서버 리소스 부담"
+      - name: "PBKDF2"
+        rejected_reason: "bcrypt 대비 보안성 낮음"
+    consequences:
+      positive:
+        - "업계 표준으로 검증됨"
+        - "대부분의 언어/프레임워크에서 지원"
+        - "cost factor 조절로 미래 대비 가능"
+      negative:
+        - "CPU 집약적 (의도된 설계)"
+    related_files:
+      - "src/auth/password.py"
+    created_by: "이현우"
+
+  - id: "D003"
+    date: "2026-01-17"
+    title: "에러 응답 포맷"
+    status: "accepted"
+    context: |
+      API 에러 응답의 일관된 포맷 필요.
+      클라이언트 개발 편의성 고려.
+    decision: "RFC 7807 Problem Details 형식 채택"
+    alternatives:
+      - name: "자체 정의 포맷"
+        rejected_reason: "표준화 부재로 클라이언트 파싱 혼란"
+      - name: "HTTP 상태 코드만"
+        rejected_reason: "상세 에러 정보 전달 불가"
+    consequences:
+      positive:
+        - "표준화된 에러 응답으로 클라이언트 파싱 용이"
+        - "에러 타입별 URI로 문서화 연동 가능"
+      negative:
+        - "응답 크기가 다소 증가"
+    related_files:
+      - "src/common/exceptions.py"
+      - "src/common/error_handlers.py"
+    created_by: "박지영"
+
+  - id: "D004"
+    date: "2026-01-18"
+    title: "로그인 시도 제한"
+    status: "accepted"
+    context: |
+      브루트포스 공격 방어 필요.
+      사용자 경험과 보안 균형.
+    decision: "5회 실패 시 15분 계정 잠금, Redis로 상태 관리"
+    alternatives:
+      - name: "CAPTCHA 도입"
+        rejected_reason: "B2B 서비스에서 UX 저하, API 자동화 어려움"
+      - name: "IP 기반 차단"
+        rejected_reason: "공유 IP 환경에서 정상 사용자 차단 위험"
+      - name: "점진적 지연 (Exponential Backoff)"
+        rejected_reason: "구현 복잡도 대비 효과 제한적"
+    consequences:
+      positive:
+        - "명확한 규칙으로 사용자 이해 용이"
+        - "Redis로 분산 환경에서도 일관된 동작"
+      negative:
+        - "Redis 의존성 추가"
+        - "정상 사용자가 비밀번호 잊었을 때 불편"
+    related_files:
+      - "src/auth/login.py"
+      - "src/services/rate_limiter.py"
+    created_by: "김수진"
+
+  - id: "D005"
+    date: "2026-01-19"
+    title: "DB 접근 패턴"
+    status: "accepted"
+    context: |
+      SQLAlchemy 2.0 마이그레이션 및 테스트 용이성.
+    decision: "Repository 패턴 + Unit of Work"
+    alternatives:
+      - name: "Active Record 패턴"
+        rejected_reason: "테스트 시 DB 의존성 분리 어려움"
+      - name: "직접 쿼리 (Raw SQL)"
+        rejected_reason: "유지보수성 저하, SQL 인젝션 위험"
+    consequences:
+      positive:
+        - "비즈니스 로직과 DB 로직 분리"
+        - "테스트 시 Mock Repository 사용 가능"
+        - "DB 변경 시 Repository만 수정"
+      negative:
+        - "초기 보일러플레이트 증가"
+        - "단순 CRUD에 과도한 추상화일 수 있음"
+    related_files:
+      - "src/repositories/base.py"
+      - "src/repositories/user_repository.py"
+      - "src/services/user_service.py"
+    created_by: "이현우"

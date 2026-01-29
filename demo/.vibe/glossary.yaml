@@ -1,0 +1,47 @@
+# VibeMemory 용어 정의
+# 프로젝트 특화 용어 및 도메인 지식
+
+version: "1.0"
+
+glossary:
+  # 비즈니스 용어
+  - term: "거래 (Transaction)"
+    definition: "사용자 간 또는 계좌 간 금액 이동"
+    context: "금융 도메인에서의 핵심 단위"
+    related_code:
+      - "src/models/transaction.py"
+      - "src/services/transaction_service.py"
+
+  - term: "정산 (Settlement)"
+    definition: "일일 거래의 최종 처리 및 잔액 확정"
+    context: "매일 자정에 배치 처리"
+    related_code:
+      - "src/jobs/settlement_job.py"
+
+  - term: "한도 (Limit)"
+    definition: "일일/월간 거래 금액 상한"
+    context: "사용자 등급별 차등 적용"
+    related_code:
+      - "src/services/limit_service.py"
+
+  # 기술 용어
+  - term: "Gateway"
+    definition: "외부 API 호출을 중계하는 내부 서비스"
+    context: "모든 외부 통신은 Gateway 경유"
+    related_code:
+      - "src/clients/gateway_client.py"
+
+  - term: "Idempotency Key"
+    definition: "중복 요청 방지를 위한 고유 키"
+    context: "모든 거래 API에 필수"
+    related_code:
+      - "src/middleware/idempotency.py"
+
+  # 약어
+  - term: "JWT"
+    definition: "JSON Web Token"
+    context: "인증 토큰 형식"
+
+  - term: "UoW"
+    definition: "Unit of Work 패턴"
+    context: "트랜잭션 관리 패턴"

@@ -1,0 +1,106 @@
+# VibeMemory 제약조건/금지사항
+# AI가 이 규칙을 위반하면 경고를 표시합니다
+
+version: "1.0"
+
+constraints:
+  # 보안 관련 제약
+  - id: "C001"
+    rule: "OAuth/소셜 로그인 사용 금지"
+    reason: |
+      보안 정책상 외부 IdP 연동 불가.
+      자체 JWT 인증만 허용.
+    severity: critical
+    scope: "인증 관련 전체"
+    keywords:
+      - "oauth"
+      - "google-auth"
+      - "social login"
+      - "passport"
+      - "firebase auth"
+    exceptions: []
+    created_at: "2026-01-15"
+    created_by: "김수진"
+
+  - id: "C002"
+    rule: "외부 CDN 사용 금지"
+    reason: |
+      폐쇄망 배포 예정.
+      모든 정적 자원은 내부 서버에서 제공.
+    severity: critical
+    scope: "프론트엔드 전체"
+    keywords:
+      - "cdn.jsdelivr"
+      - "cdnjs"
+      - "unpkg"
+      - "googleapis.com"
+    exceptions: []
+    created_at: "2026-01-15"
+    created_by: "김수진"
+
+  - id: "C003"
+    rule: "금융 데이터 평문 로깅 금지"
+    reason: |
+      개인정보보호법 및 금융보안 규정 준수.
+      민감 정보는 마스킹 후 로깅.
+    severity: critical
+    scope: "로깅 전체"
+    keywords:
+      - "print(.*account"
+      - "print(.*balance"
+      - "logger.info(.*password"
+      - "console.log(.*card"
+    exceptions:
+      - "개발 환경 디버깅 (PR 전 제거 필수)"
+    created_at: "2026-01-16"
+    created_by: "보안팀"
+
+  - id: "C004"
+    rule: "동기 DB 호출 금지"
+    reason: |
+      FastAPI 비동기 성능 최적화.
+      모든 DB 작업은 async/await 사용.
+    severity: warning
+    scope: "DB 접근 코드"
+    keywords:
+      - "session.query"
+      - "session.execute"
+      - "connection.execute"
+    exceptions:
+      - "마이그레이션 스크립트"
+      - "CLI 도구"
+    created_at: "2026-01-17"
+    created_by: "이현우"
+
+  - id: "C005"
+    rule: "requests 라이브러리 직접 사용 금지"
+    reason: |
+      비동기 환경에서 httpx 사용 권장.
+      외부 API 호출은 Gateway 서비스 경유.
+    severity: warning
+    scope: "외부 API 호출"
+    keywords:
+      - "import requests"
+      - "from requests"
+      - "requests.get"
+      - "requests.post"
+    exceptions:
+      - "테스트 코드"
+    created_at: "2026-01-18"
+    created_by: "김수진"
+
+  - id: "C006"
+    rule: "하드코딩된 시크릿 금지"
+    reason: |
+      보안 및 환경별 설정 관리.
+      모든 시크릿은 환경변수 또는 Vault 사용.
+    severity: critical
+    scope: "전체 코드"
+    keywords:
+      - "password = \""
+      - "secret = \""
+      - "api_key = \""
+      - "token = \""
+    exceptions: []
+    created_at: "2026-01-15"
+    created_by: "보안팀"
