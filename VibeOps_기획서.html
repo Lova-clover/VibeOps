@@ -7,8 +7,9 @@
         @page { size: A4; margin: 0; }
         @media print {
             * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            body { background: white; }
-            .page { margin: 0; box-shadow: none; }
+            html, body { margin: 0; padding: 0; background: white; }
+            .page { margin: 0; box-shadow: none; page-break-after: always; page-break-inside: avoid; }
+            .page:last-child { page-break-after: auto; }
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -22,11 +23,14 @@
         
         .page {
             width: 210mm;
-            min-height: 297mm;
+            height: 297mm;
             background: white;
             margin: 8px auto;
             position: relative;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            overflow: hidden;
+            page-break-after: always;
+            page-break-inside: avoid;
         }
         
         /* ===== PAGE 1: COVER ===== */
@@ -52,7 +56,7 @@
         .cover-meta { font-size: 10pt; opacity: 0.6; }
         
         /* ===== PAGE 2-4: CONTENT ===== */
-        .content { padding: 16mm 18mm 14mm; height: calc(297mm - 30mm); overflow: hidden; position: relative; }
+        .content { padding: 15mm 18mm 18mm; height: 264mm; overflow: hidden; position: relative; }
         
         h2 {
             font-size: 13pt; font-weight: 700; color: #ea580c;
