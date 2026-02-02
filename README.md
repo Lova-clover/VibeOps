@@ -93,7 +93,7 @@ constraints:
 
 ## 🔗 링크
 
-- **🎨 데모 사이트**: [vibe-memory-ivory.vercel.app](https://vibe-memory-ivory.vercel.app)
+- **🎨 데모 사이트**: [vibeops-rho.vercel.app](https://vibeops-rho.vercel.app/)
 - **📄 기획서**: [VibeOps_기획서.html](./VibeOps_기획서.html)
 
 ---
