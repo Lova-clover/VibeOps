@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-VibeMemory Core - AI 컨텍스트 영속화 시스템
+VibeOps Core - AI 컨텍스트 영속화 시스템
 개념 증명 (Proof of Concept) 코드
 """
 
@@ -128,7 +128,7 @@ class ContextManager:
         ctx = self.context
         
         prompt_parts = [
-            "# 프로젝트 컨텍스트 (VibeMemory)",
+            "# 프로젝트 컨텍스트 (VibeOps)",
             "",
             f"## 프로젝트: {ctx.name}",
             ctx.description,
@@ -239,7 +239,7 @@ class ConstraintChecker:
         if not violations:
             return ""
         
-        lines = ["⚠️ VibeMemory 제약조건 위반 감지!", ""]
+        lines = ["⚠️ VibeOps 제약조건 위반 감지!", ""]
         
         for v in violations:
             icon = "🚨" if v.severity == "critical" else "⚠️"
@@ -318,10 +318,10 @@ class SessionAnalyzer:
 # =============================================================================
 
 def demo():
-    """VibeMemory 개념 증명 데모"""
+    """VibeOps 개념 증명 데모"""
     
     print("=" * 60)
-    print("🧠 VibeMemory Demo - AI 컨텍스트 영속화 시스템")
+    print("🧠 VibeOps Demo - AI 컨텍스트 영속화 시스템")
     print("=" * 60)
     print()
     
@@ -377,7 +377,7 @@ def demo():
     print("=" * 60)
     print("데모 완료!")
     print()
-    print("💡 VibeMemory의 핵심 가치:")
+    print("💡 VibeOps의 핵심 가치:")
     print("   1. AI 세션 시작 시 컨텍스트 자동 주입")
     print("   2. 금지사항 위반 실시간 감지")
     print("   3. 기술 결정 자동 추출 및 기록")

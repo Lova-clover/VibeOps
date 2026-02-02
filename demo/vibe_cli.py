@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-VibeMemory CLI - 명령줄 인터페이스
+VibeOps CLI - 명령줄 인터페이스
 개념 증명 (Proof of Concept)
 
 사용법:
@@ -30,7 +30,7 @@ def cmd_init(args):
     (vibe_dir / "history").mkdir()
     
     # 기본 context.yaml 생성
-    context_template = '''# VibeMemory 프로젝트 컨텍스트
+    context_template = '''# VibeOps 프로젝트 컨텍스트
 version: "1.0"
 
 project:
@@ -60,7 +60,7 @@ conventions:
     (vibe_dir / "context.yaml").write_text(context_template, encoding='utf-8')
     
     # 기본 constraints.yaml 생성
-    constraints_template = '''# VibeMemory 제약조건
+    constraints_template = '''# VibeOps 제약조건
 version: "1.0"
 
 constraints:
@@ -78,7 +78,7 @@ constraints:
     (vibe_dir / "constraints.yaml").write_text(constraints_template, encoding='utf-8')
     
     # 기본 decisions.yaml 생성
-    decisions_template = '''# VibeMemory 기술 결정 기록
+    decisions_template = '''# VibeOps 기술 결정 기록
 version: "1.0"
 
 decisions:
@@ -103,7 +103,7 @@ decisions:
 history/*.yaml
 ''', encoding='utf-8')
     
-    print("✅ VibeMemory 초기화 완료!")
+    print("✅ VibeOps 초기화 완료!")
     print()
     print("📁 생성된 파일:")
     print("   .vibe/context.yaml      - 프로젝트 컨텍스트")
@@ -120,8 +120,8 @@ history/*.yaml
 def cmd_inject(args):
     """AI 프롬프트용 컨텍스트 출력"""
     try:
-        # vibememory_core에서 ContextManager import (실제 구현 시)
-        from vibememory_core import ContextManager
+        # VibeOps_core에서 ContextManager import (실제 구현 시)
+        from VibeOps_core import ContextManager
         
         cm = ContextManager()
         cm.load()
@@ -134,7 +134,7 @@ def cmd_inject(args):
             print(prompt)
             
     except ImportError:
-        print("⚠️ vibememory_core를 import할 수 없습니다.")
+        print("⚠️ VibeOps_core를 import할 수 없습니다.")
         print("   demo 디렉토리에서 실행하세요.")
     except FileNotFoundError:
         print("⚠️ .vibe 디렉토리를 찾을 수 없습니다.")
@@ -150,7 +150,7 @@ def cmd_check(args):
         return
     
     try:
-        from vibememory_core import ContextManager, ConstraintChecker
+        from VibeOps_core import ContextManager, ConstraintChecker
         
         cm = ContextManager()
         context = cm.load()
@@ -167,7 +167,7 @@ def cmd_check(args):
             print(f"✅ {file_path}: 제약조건 위반 없음")
             
     except ImportError:
-        print("⚠️ vibememory_core를 import할 수 없습니다.")
+        print("⚠️ VibeOps_core를 import할 수 없습니다.")
 
 
 def cmd_why(args):
@@ -220,7 +220,7 @@ def cmd_add_constraint(args):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="VibeMemory CLI - AI 컨텍스트 영속화 시스템",
+        description="VibeOps CLI - AI 컨텍스트 영속화 시스템",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 예시:
