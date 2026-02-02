@@ -4,209 +4,162 @@
     <meta charset="UTF-8">
     <title>VibeOps 기획서</title>
     <style>
-        @page { size: A4; margin: 20mm; }
-        @media print {
-            body { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-            .page { page-break-after: always !important; }
-            .page:last-child { page-break-after: avoid !important; }
+        @page {
+            size: A4;
+            margin: 0;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
-            font-family: 'Pretendard', -apple-system, 'Malgun Gothic', sans-serif;
-            font-size: 11pt;
-            line-height: 1.7;
+            font-family: 'Malgun Gothic', -apple-system, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.6;
             color: #1a1a1a;
-            background: #f5f5f5;
+            background: #e5e5e5;
         }
         
+        /* Page Container */
         .page {
+            width: 210mm;
+            height: 297mm;
             background: white;
-            max-width: 210mm;
-            min-height: 297mm;
-            margin: 20px auto;
-            padding: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 10px auto;
+            padding: 20mm;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
             page-break-after: always;
+            page-break-inside: avoid;
         }
         
-        .page:last-child { page-break-after: avoid; }
+        .page:last-child {
+            page-break-after: avoid;
+        }
         
-        /* Cover Page */
+        /* Cover */
         .cover {
-            height: 297mm;
+            padding: 0;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+            background: linear-gradient(135deg, #f97316, #ea580c);
             color: white;
-            position: relative;
-            overflow: hidden;
         }
         
-        .cover::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 50%);
-        }
-        
-        .cover-content { position: relative; z-index: 1; }
-        
-        .cover-logo {
-            font-size: 80pt;
-            margin-bottom: 20px;
-        }
-        
-        .cover h1 {
-            font-size: 48pt;
-            font-weight: 700;
-            margin-bottom: 16px;
-            letter-spacing: -1px;
-        }
-        
-        .cover-subtitle {
-            font-size: 18pt;
-            font-weight: 400;
-            opacity: 0.95;
-            margin-bottom: 60px;
-        }
-        
+        .cover-logo { font-size: 72pt; margin-bottom: 16px; }
+        .cover h1 { font-size: 44pt; font-weight: 700; margin-bottom: 12px; }
+        .cover-subtitle { font-size: 16pt; opacity: 0.95; margin-bottom: 48px; }
         .cover-tagline {
-            font-size: 13pt;
+            font-size: 12pt;
             opacity: 0.85;
             font-style: italic;
-            padding: 12px 30px;
-            border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 30px;
-            margin-bottom: 80px;
+            padding: 10px 24px;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 24px;
+            margin-bottom: 60px;
         }
+        .cover-info { font-size: 11pt; opacity: 0.7; }
         
-        .cover-info {
-            font-size: 11pt;
-            opacity: 0.7;
-        }
-        
-        /* Content Pages */
-        .content-page {
-            padding: 25mm 25mm 20mm;
-        }
-        
+        /* Content */
         h2 {
-            font-size: 16pt;
+            font-size: 14pt;
             font-weight: 700;
             color: #ea580c;
-            margin: 0 0 16px 0;
-            padding-bottom: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 6px;
             border-bottom: 2px solid #f97316;
         }
         
         h3 {
-            font-size: 12pt;
+            font-size: 11pt;
             font-weight: 600;
             color: #374151;
-            margin: 20px 0 12px;
+            margin: 14px 0 8px;
         }
         
         p {
-            margin-bottom: 12px;
+            margin-bottom: 8px;
             text-align: justify;
             color: #374151;
         }
         
         /* Boxes */
         .highlight-box {
-            background: linear-gradient(135deg, #fff7ed, #ffedd5);
-            border-left: 4px solid #f97316;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 0 8px 8px 0;
+            background: #fff7ed;
+            border-left: 3px solid #f97316;
+            padding: 12px 14px;
+            margin: 12px 0;
+            font-size: 10pt;
         }
         
         .problem-box {
             background: #fef2f2;
-            border-left: 4px solid #ef4444;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 0 8px 8px 0;
+            border-left: 3px solid #ef4444;
+            padding: 12px 14px;
+            margin: 12px 0;
+            font-size: 10pt;
         }
         
         .solution-box {
             background: #f0fdf4;
-            border-left: 4px solid #22c55e;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 0 8px 8px 0;
+            border-left: 3px solid #22c55e;
+            padding: 12px 14px;
+            margin: 12px 0;
+            font-size: 10pt;
         }
         
         .neutral-box {
             background: #f9fafb;
             border: 1px solid #e5e7eb;
-            padding: 16px 20px;
-            margin: 16px 0;
-            border-radius: 8px;
+            padding: 12px 14px;
+            margin: 12px 0;
+            font-size: 10pt;
         }
         
         /* Pipeline */
         .pipeline-visual {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
+            gap: 8px;
             background: #f9fafb;
-            padding: 20px;
-            border-radius: 12px;
-            margin: 20px 0;
+            padding: 14px;
+            border-radius: 8px;
+            margin: 12px 0;
             border: 1px solid #e5e7eb;
         }
         
-        .pipeline-step {
-            text-align: center;
-            flex: 1;
-        }
-        
+        .pipeline-step { text-align: center; }
         .pipeline-num {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, #f97316, #ea580c);
+            width: 32px;
+            height: 32px;
+            background: #f97316;
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 8px;
+            margin: 0 auto 4px;
             font-weight: 700;
-            font-size: 14pt;
+            font-size: 12pt;
         }
-        
-        .pipeline-label {
-            font-size: 10pt;
-            color: #6b7280;
-            font-weight: 500;
-        }
-        
-        .pipeline-arrow {
-            color: #d1d5db;
-            font-size: 16pt;
-            margin: 0 5px;
-        }
+        .pipeline-label { font-size: 9pt; color: #6b7280; }
+        .pipeline-arrow { color: #d1d5db; font-size: 14pt; }
         
         /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 16px 0;
-            font-size: 10pt;
+            margin: 10px 0;
+            font-size: 9pt;
         }
         
         th, td {
             border: 1px solid #e5e7eb;
-            padding: 10px 12px;
+            padding: 6px 8px;
             text-align: left;
         }
         
@@ -222,13 +175,13 @@
         .code-block {
             background: #1f2937;
             color: #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
-            font-family: 'SF Mono', 'Consolas', monospace;
-            font-size: 9pt;
-            line-height: 1.6;
-            margin: 16px 0;
-            overflow-x: auto;
+            border-radius: 6px;
+            padding: 12px;
+            font-family: Consolas, monospace;
+            font-size: 8.5pt;
+            line-height: 1.5;
+            margin: 10px 0;
+            white-space: pre;
         }
         
         .code-block .comment { color: #9ca3af; }
@@ -236,170 +189,159 @@
         .code-block .value { color: #60a5fa; }
         
         /* Lists */
-        ul, ol {
-            margin: 12px 0 12px 24px;
-            color: #374151;
-        }
-        
-        li { margin-bottom: 8px; }
+        ul, ol { margin: 8px 0 8px 20px; color: #374151; font-size: 10pt; }
+        li { margin-bottom: 4px; }
         
         /* Grid */
         .grid-2 {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 16px;
-            margin: 16px 0;
+            gap: 10px;
+            margin: 10px 0;
         }
         
         .grid-item {
             background: #f9fafb;
             border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
+            border-radius: 6px;
+            padding: 10px;
         }
         
-        .grid-item h4 {
-            color: #ea580c;
-            font-size: 11pt;
-            margin-bottom: 8px;
-        }
-        
-        .grid-item p {
-            font-size: 10pt;
-            margin: 0;
-            color: #6b7280;
-        }
-        
-        /* Page Footer */
-        .page-footer {
-            text-align: center;
-            color: #9ca3af;
-            font-size: 9pt;
-            margin-top: 30px;
-            padding-top: 15px;
-            border-top: 1px solid #e5e7eb;
-        }
+        .grid-item h4 { color: #ea580c; font-size: 10pt; margin-bottom: 4px; }
+        .grid-item p { font-size: 9pt; margin: 0; color: #6b7280; }
         
         /* Metrics */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 16px 0;
+            gap: 8px;
+            margin: 10px 0;
         }
         
         .metric-card {
             background: #f9fafb;
             border: 1px solid #e5e7eb;
-            border-radius: 8px;
-            padding: 16px;
+            border-radius: 6px;
+            padding: 10px;
             text-align: center;
         }
         
-        .metric-value {
-            font-size: 18pt;
-            font-weight: 700;
-            color: #22c55e;
-        }
+        .metric-value { font-size: 16pt; font-weight: 700; color: #22c55e; }
+        .metric-label { font-size: 8pt; color: #6b7280; margin-top: 2px; }
         
-        .metric-label {
-            font-size: 9pt;
-            color: #6b7280;
-            margin-top: 4px;
-        }
-        
-        /* Warning text */
-        .note {
-            font-size: 9pt;
+        /* Footer */
+        .page-footer {
+            position: absolute;
+            bottom: 15mm;
+            left: 20mm;
+            right: 20mm;
+            text-align: center;
             color: #9ca3af;
-            font-style: italic;
-            margin-top: 8px;
+            font-size: 8pt;
+            padding-top: 10px;
+            border-top: 1px solid #e5e7eb;
         }
         
+        .note { font-size: 8pt; color: #9ca3af; font-style: italic; }
         strong { color: #1a1a1a; }
+        
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            .page {
+                margin: 0;
+                box-shadow: none;
+                page-break-after: always;
+                page-break-inside: avoid;
+            }
+            
+            .page:last-child {
+                page-break-after: avoid;
+            }
+            
+            .cover {
+                background: linear-gradient(135deg, #f97316, #ea580c) !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            th {
+                background: #f97316 !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .code-block {
+                background: #1f2937 !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            .pipeline-num {
+                background: #f97316 !important;
+                -webkit-print-color-adjust: exact !important;
+            }
+            
+            h2, h3, table, .highlight-box, .problem-box, .solution-box, .neutral-box, .code-block, .grid-2, ul, ol {
+                page-break-inside: avoid;
+            }
+        }
     </style>
 </head>
 <body>
     <!-- Page 1: Cover -->
     <div class="page cover">
-        <div class="cover-content">
-            <div class="cover-logo">⚡</div>
-            <h1>VibeOps</h1>
-            <p class="cover-subtitle">바이브 코딩을 위한 품질 파이프라인</p>
-            <p class="cover-tagline">"AI에게 코드를 요청하기 전에, 먼저 스펙을 확정하라"</p>
-            <p class="cover-info">바이브 코딩 개선 AI 아이디어 공모전</p>
-            <p class="cover-info" style="margin-top: 12px;">2026년 2월</p>
-        </div>
+        <div class="cover-logo">⚡</div>
+        <h1>VibeOps</h1>
+        <p class="cover-subtitle">바이브 코딩을 위한 품질 파이프라인</p>
+        <p class="cover-tagline">"AI에게 코드를 요청하기 전에, 먼저 스펙을 확정하라"</p>
+        <p class="cover-info">바이브 코딩 개선 AI 아이디어 공모전</p>
+        <p class="cover-info" style="margin-top: 10px;">2026년 2월</p>
     </div>
     
     <!-- Page 2: Summary & Problem -->
-    <div class="page content-page">
+    <div class="page">
         <h2>Executive Summary</h2>
         
         <div class="highlight-box">
-            <strong>VibeOps</strong>는 바이브 코딩에 <strong>5단계 품질 파이프라인</strong>을 도입하는 시스템입니다.<br>
-            코드 생성 "전"에 스펙을 확정하고, 생성 "후"에 자동으로 검증하며, 모든 과정을 자동 문서화합니다.
+            <strong>VibeOps</strong>는 바이브 코딩에 <strong>5단계 품질 파이프라인</strong>을 도입합니다.<br>
+            코드 생성 "전"에 스펙을 확정하고, 생성 "후"에 자동 검증하며, 모든 과정을 자동 문서화합니다.
         </div>
         
         <div class="pipeline-visual">
-            <div class="pipeline-step">
-                <div class="pipeline-num">1</div>
-                <div class="pipeline-label">Spec</div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">1</div><div class="pipeline-label">Spec</div></div>
             <div class="pipeline-arrow">→</div>
-            <div class="pipeline-step">
-                <div class="pipeline-num">2</div>
-                <div class="pipeline-label">Verify</div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">2</div><div class="pipeline-label">Verify</div></div>
             <div class="pipeline-arrow">→</div>
-            <div class="pipeline-step">
-                <div class="pipeline-num">3</div>
-                <div class="pipeline-label">Generate</div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">3</div><div class="pipeline-label">Generate</div></div>
             <div class="pipeline-arrow">→</div>
-            <div class="pipeline-step">
-                <div class="pipeline-num">4</div>
-                <div class="pipeline-label">Validate</div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">4</div><div class="pipeline-label">Validate</div></div>
             <div class="pipeline-arrow">→</div>
-            <div class="pipeline-step">
-                <div class="pipeline-num">5</div>
-                <div class="pipeline-label">Document</div>
-            </div>
+            <div class="pipeline-step"><div class="pipeline-num">5</div><div class="pipeline-label">Document</div></div>
         </div>
         
         <h3>기대 효과</h3>
         <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-value">↓</div>
-                <div class="metric-label">재작업 감소</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">↓</div>
-                <div class="metric-label">문서화 부담</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">↓</div>
-                <div class="metric-label">온보딩 시간</div>
-            </div>
-            <div class="metric-card">
-                <div class="metric-value">↑</div>
-                <div class="metric-label">코드 일관성</div>
-            </div>
+            <div class="metric-card"><div class="metric-value">↓</div><div class="metric-label">재작업 감소</div></div>
+            <div class="metric-card"><div class="metric-value">↓</div><div class="metric-label">문서화 부담</div></div>
+            <div class="metric-card"><div class="metric-value">↓</div><div class="metric-label">온보딩 시간</div></div>
+            <div class="metric-card"><div class="metric-value">↑</div><div class="metric-label">코드 일관성</div></div>
         </div>
         <p class="note">* 효과 정도는 팀 규모, 프로젝트 특성, 도입 범위에 따라 달라질 수 있습니다.</p>
         
-        <h2 style="margin-top: 30px;">1. 문제 정의</h2>
+        <h2 style="margin-top: 20px;">1. 문제 정의</h2>
         
         <div class="problem-box">
-            <strong>핵심 문제: 바이브 코딩에 품질 관리 프로세스가 없다</strong><br><br>
+            <strong>핵심 문제: 바이브 코딩에 품질 관리 프로세스가 없다</strong><br>
             전통적 개발에는 요구사항 분석 → 설계 → 개발 → 테스트 → 리뷰의 프로세스가 있습니다.
             반면 바이브 코딩은 <strong>"만들어줘" → 코드 → 커밋</strong>으로 끝나는 경우가 많습니다.
         </div>
         
         <h3>문제 시나리오</h3>
         <table>
-            <tr><th>단계</th><th>현재 바이브 코딩</th><th>발생하는 문제</th></tr>
+            <tr><th style="width:15%">단계</th><th style="width:40%">현재 바이브 코딩</th><th style="width:45%">발생하는 문제</th></tr>
             <tr><td>요청</td><td>"로그인 만들어줘"</td><td>의도가 모호함</td></tr>
             <tr><td>생성</td><td>AI가 OAuth 코드 생성</td><td>금지 정책 위반 (AI는 이를 모름)</td></tr>
             <tr><td>커밋</td><td>검토 없이 바로 커밋</td><td>품질 검증 없음</td></tr>
@@ -408,7 +350,7 @@
         
         <h3>왜 기존 도구로 해결이 어려운가?</h3>
         <table>
-            <tr><th>도구</th><th>한계</th></tr>
+            <tr><th style="width:30%">도구</th><th style="width:70%">한계</th></tr>
             <tr><td>.cursorrules 등 규칙 파일</td><td>사전 지시만 가능, 생성 후 검증/문서화 기능 없음</td></tr>
             <tr><td>시스템 프롬프트</td><td>도구마다 설정 방식이 달라 일관성 유지 어려움</td></tr>
             <tr><td>ESLint/SonarQube</td><td>정적 분석만 제공, 의도/정책 수준 검증 불가</td></tr>
@@ -419,7 +361,7 @@
     </div>
     
     <!-- Page 3: Solution -->
-    <div class="page content-page">
+    <div class="page">
         <h2>2. 해결책: VibeOps 5단계 파이프라인</h2>
         
         <div class="solution-box">
@@ -427,80 +369,44 @@
         </div>
         
         <h3>Stage 1: Spec Gate (스펙 게이트)</h3>
-        <p>
-            모호한 자연어 요청을 <strong>구조화된 스펙</strong>으로 변환합니다.
-            개발자는 코드가 아닌 스펙을 확인하므로, 의도 불일치를 조기에 발견할 수 있습니다.
-        </p>
+        <p>모호한 자연어 요청을 <strong>구조화된 스펙</strong>으로 변환합니다. 개발자는 코드가 아닌 스펙을 확인하므로, 의도 불일치를 조기에 발견할 수 있습니다.</p>
         
-        <div class="code-block"><span class="comment"># 요청: "로그인 기능 만들어줘"</span>
-<span class="comment"># → VibeOps가 자동 생성하는 스펙:</span>
-
+        <div class="code-block"><span class="comment"># 요청: "로그인 기능 만들어줘" → VibeOps가 자동 생성하는 스펙:</span>
 <span class="key">spec:</span>
   <span class="key">id:</span> <span class="value">SPEC-001</span>
   <span class="key">feature:</span> <span class="value">사용자 로그인</span>
-  <span class="key">requirements:</span>
-    - <span class="value">이메일/비밀번호 기반 인증</span>
-    - <span class="value">JWT 토큰 발급</span>
-    - <span class="value">bcrypt 해싱</span>
-  <span class="key">constraints:</span>
-    - <span class="key">ref:</span> <span class="value">C001</span>  <span class="comment"># OAuth 금지</span></div>
+  <span class="key">requirements:</span> [<span class="value">이메일/비밀번호 인증</span>, <span class="value">JWT 토큰 발급</span>, <span class="value">bcrypt 해싱</span>]
+  <span class="key">constraints:</span> [<span class="value">C001: OAuth 금지</span>]</div>
         
         <h3>Stage 2: Verify Gate (검증 게이트)</h3>
-        <p>
-            새 요청이 <strong>기존 결정/정책과 충돌</strong>하는지 코드 생성 "전"에 감지합니다.
-            충돌 발견 시 대안을 제시하여 재작업을 방지합니다.
-        </p>
+        <p>새 요청이 <strong>기존 결정/정책과 충돌</strong>하는지 코드 생성 "전"에 감지합니다. 충돌 발견 시 대안을 제시하여 재작업을 방지합니다.</p>
         
         <div class="neutral-box">
-            <strong style="color: #d97706;">⚠️ 정책 충돌 감지</strong><br><br>
-            <strong>요청:</strong> 소셜 로그인 추가<br>
-            <strong>충돌:</strong> [C001] OAuth/소셜 로그인 사용 금지<br>
-            <strong>사유:</strong> 보안 정책상 외부 IdP 연동 불가<br><br>
-            → 대안: 자체 인증으로 구현하거나, 정책 예외 추가 후 진행
+            <strong style="color: #d97706;">⚠️ 정책 충돌 감지</strong><br>
+            <strong>요청:</strong> 소셜 로그인 추가 | <strong>충돌:</strong> [C001] OAuth 금지 | <strong>대안:</strong> 자체 인증으로 구현
         </div>
         
         <h3>Stage 3: Generate (코드 생성)</h3>
-        <p>
-            확정된 스펙과 프로젝트 컨텍스트를 기반으로 AI가 코드를 생성합니다.
-            기존 결정, 기술 스택, 코딩 컨벤션이 자동으로 주입됩니다.
-        </p>
+        <p>확정된 스펙과 프로젝트 컨텍스트를 기반으로 AI가 코드를 생성합니다. 기존 결정, 기술 스택, 코딩 컨벤션이 자동으로 주입됩니다.</p>
         
         <h3>Stage 4: Validate Gate (품질 게이트)</h3>
-        <p>
-            생성된 코드가 정책을 준수하는지, 기본적인 보안 취약점은 없는지, 
-            기존 코드와 일관성이 있는지 자동으로 검증합니다.
-        </p>
+        <p>생성된 코드가 정책을 준수하는지, 기본적인 보안 취약점은 없는지, 기존 코드와 일관성이 있는지 자동으로 검증합니다.</p>
         
         <div class="grid-2">
-            <div class="grid-item">
-                <h4>🛡️ 정책 검사</h4>
-                <p>금지된 키워드/패턴이 코드에 포함되었는지 검사</p>
-            </div>
-            <div class="grid-item">
-                <h4>🔒 보안 검사</h4>
-                <p>하드코딩된 비밀, SQL 인젝션 등 기본 취약점 감지</p>
-            </div>
-            <div class="grid-item">
-                <h4>🎨 일관성 검사</h4>
-                <p>기존 코드베이스 스타일/패턴과 일치 여부 확인</p>
-            </div>
-            <div class="grid-item">
-                <h4>📋 스펙 대조</h4>
-                <p>생성된 코드가 확정된 스펙과 일치하는지 검증</p>
-            </div>
+            <div class="grid-item"><h4>🛡️ 정책 검사</h4><p>금지된 키워드/패턴이 코드에 포함되었는지 검사</p></div>
+            <div class="grid-item"><h4>🔒 보안 검사</h4><p>하드코딩된 비밀, SQL 인젝션 등 기본 취약점 감지</p></div>
+            <div class="grid-item"><h4>🎨 일관성 검사</h4><p>기존 코드베이스 스타일/패턴과 일치 여부 확인</p></div>
+            <div class="grid-item"><h4>📋 스펙 대조</h4><p>생성된 코드가 확정된 스펙과 일치하는지 검증</p></div>
         </div>
         
         <h3>Stage 5: Auto Document (자동 문서화)</h3>
-        <p>
-            스펙, 결정, 검증 결과가 <strong>.vibe 디렉토리에 자동 저장</strong>됩니다.
-            <code>vibe why</code> 명령으로 언제든 코드의 맥락을 조회할 수 있습니다.
-        </p>
+        <p>스펙, 결정, 검증 결과가 <strong>.vibe 디렉토리에 자동 저장</strong>됩니다. <code>vibe why</code> 명령으로 언제든 코드의 맥락을 조회할 수 있습니다.</p>
         
         <div class="page-footer">VibeOps 기획서 | 3/4</div>
     </div>
     
     <!-- Page 4: Scenarios, Limitations, Expansion -->
-    <div class="page content-page">
+    <div class="page">
         <h2>3. 적용 시나리오</h2>
         
         <h3>시나리오 1: 정책 위반 사전 차단</h3>
@@ -520,10 +426,10 @@
             <tr><td>1주차</td><td>코드 탐색 계속</td><td>기능 개발 시작 가능</td></tr>
         </table>
         
-        <h2 style="margin-top: 25px;">4. 한계점 및 완화 방안</h2>
+        <h2 style="margin-top: 16px;">4. 한계점 및 완화 방안</h2>
         
         <table>
-            <tr><th>한계</th><th>완화 방안</th></tr>
+            <tr><th style="width:35%">한계</th><th style="width:65%">완화 방안</th></tr>
             <tr><td>스펙 자동 추출 정확도</td><td>사용자 확인/수정 단계 필수화</td></tr>
             <tr><td>초기 설정 부담</td><td>산업별 템플릿 제공, 자동 초기화 지원</td></tr>
             <tr><td>학습 곡선</td><td>직관적 CLI 설계, 튜토리얼/문서 제공</td></tr>
@@ -535,38 +441,33 @@
             <li><strong>추가 인프라 불필요:</strong> .vibe 폴더만 추가하면 됨</li>
             <li><strong>점진적 도입:</strong> 기존 워크플로우 변경 없이 단계적 적용 가능</li>
             <li><strong>낮은 학습 비용:</strong> YAML 형식으로 개발자라면 즉시 이해 가능</li>
-            <li><strong>기존 체계 활용:</strong> Git 버전 관리와 자연스럽게 통합</li>
         </ul>
         
-        <h2 style="margin-top: 25px;">5. 확장 로드맵</h2>
+        <h2 style="margin-top: 16px;">5. 확장 로드맵</h2>
         
         <h3>단기 (3-6개월)</h3>
         <ul>
             <li>Cursor, Copilot, Claude 등 다중 AI 도구 플러그인</li>
             <li>VS Code 확장: 실시간 Validate Gate 표시</li>
-            <li>산업별 정책 템플릿 제공</li>
         </ul>
         
         <h3>중장기 (6-12개월)</h3>
         <ul>
             <li>팀 패턴 학습 기반 스펙 자동 제안</li>
             <li>CI/CD 파이프라인 연동 (PR 시 자동 검증)</li>
-            <li>크로스 팀 아키텍처 결정 동기화</li>
         </ul>
         
         <h3>다른 분야로의 확장 가능성</h3>
-        <p>
-            "스펙 우선 → 검증 → 문서화" 패턴은 코딩뿐 아니라 AI 협업 전반에 적용 가능합니다.
-        </p>
+        <p>"스펙 우선 → 검증 → 문서화" 패턴은 코딩뿐 아니라 AI 협업 전반에 적용 가능합니다.</p>
         <ul>
             <li><strong>디자인 AI:</strong> 디자인 요청 → 브랜드 가이드라인 검증 → 생성</li>
             <li><strong>문서 AI:</strong> 문서 요청 → 톤앤매너 검증 → 생성</li>
             <li><strong>분석 AI:</strong> 분석 요청 → 데이터 정책 검증 → 생성</li>
         </ul>
         
-        <div class="page-footer" style="margin-top: 40px;">
+        <div class="page-footer">
             <strong>VibeOps</strong> - 바이브 코딩에도 품질 관리가 필요합니다<br>
-            <span style="margin-top: 8px; display: inline-block;">바이브 코딩 개선 AI 아이디어 공모전 출품작 | 2026년 2월</span>
+            바이브 코딩 개선 AI 아이디어 공모전 출품작 | 2026년 2월
         </div>
     </div>
 </body>
