@@ -5,104 +5,156 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VibeOps - 바이브 코딩을 위한 품질 파이프라인</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0a0c;
-            --bg-secondary: #111114;
-            --bg-card: #18181b;
-            --bg-card-hover: #1f1f23;
-            --border: #27272a;
-            --border-light: #3f3f46;
-            --text-primary: #fafafa;
-            --text-secondary: #a1a1aa;
-            --text-muted: #71717a;
-            --accent: #f97316;
-            --accent-light: #fb923c;
-            --accent-dark: #ea580c;
-            --success: #22c55e;
-            --warning: #eab308;
-            --danger: #ef4444;
-            --info: #3b82f6;
+            --bg: #000000;
+            --bg-elevated: #0a0a0a;
+            --bg-card: #111111;
+            --bg-card-hover: #1a1a1a;
+            --border: #222222;
+            --border-light: #333333;
+            --text: #ffffff;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --accent: #ff6b35;
+            --accent-glow: rgba(255, 107, 53, 0.15);
+            --success: #00d26a;
+            --warning: #ffc107;
+            --danger: #ff4757;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
+        html { scroll-behavior: smooth; }
+        
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        ::selection { background: var(--accent); color: white; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        
+        /* ===== HERO ===== */
+        .hero {
             min-height: 100vh;
-        }
-        
-        /* Layout */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
-        
-        /* Header */
-        header {
-            padding: 80px 0 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-            border-bottom: 1px solid var(--border);
+            position: relative;
+            padding: 60px 24px;
+            background: radial-gradient(ellipse at 50% 0%, rgba(255,107,53,0.08) 0%, transparent 60%);
         }
         
-        .logo {
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+        
+        .hero-content { position: relative; z-index: 1; max-width: 800px; }
+        
+        .badge {
             display: inline-flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+            padding: 8px 16px;
+            background: var(--accent-glow);
+            border: 1px solid rgba(255,107,53,0.3);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            margin-bottom: 32px;
+            animation: fadeInUp 0.6s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero h1 {
+            font-size: clamp(40px, 8vw, 72px);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.1;
             margin-bottom: 24px;
+            animation: fadeInUp 0.6s ease 0.1s both;
         }
         
-        .logo-icon {
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, var(--accent), var(--accent-dark));
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
-        }
-        
-        .logo-text {
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-        }
-        
-        h1 {
-            font-size: 48px;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-            background: linear-gradient(90deg, var(--text-primary), var(--text-secondary));
+        .hero h1 .gradient {
+            background: linear-gradient(135deg, var(--accent), #ff9f43);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
-        .tagline {
+        .hero-desc {
             font-size: 20px;
             color: var(--text-secondary);
-            margin-bottom: 32px;
-            font-weight: 400;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            animation: fadeInUp 0.6s ease 0.2s both;
         }
         
-        .hero-badge {
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+        
+        .btn {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 20px;
-            background: rgba(249, 115, 22, 0.1);
-            border: 1px solid rgba(249, 115, 22, 0.3);
-            border-radius: 100px;
-            color: var(--accent-light);
-            font-size: 14px;
-            font-weight: 500;
+            padding: 14px 28px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border: none;
         }
         
-        /* Pipeline */
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 24px rgba(255,107,53,0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(255,107,53,0.4);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-card);
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--border-light);
+        }
+        
+        /* ===== PIPELINE ===== */
         .pipeline-section {
-            padding: 48px 0;
-            background: var(--bg-secondary);
+            padding: 80px 0;
+            background: var(--bg-elevated);
+            border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
         }
         
@@ -110,141 +162,151 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         
-        .pipeline-step {
+        .pipe-step {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 16px 24px;
+            padding: 20px 28px;
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 12px;
-            min-width: 100px;
-            transition: all 0.2s ease;
+            border-radius: 16px;
+            transition: all 0.3s ease;
             cursor: default;
         }
         
-        .pipeline-step:hover {
+        .pipe-step:hover {
+            transform: translateY(-4px);
             border-color: var(--accent);
-            transform: translateY(-2px);
+            box-shadow: 0 8px 32px var(--accent-glow);
         }
         
-        .pipeline-step.active {
+        .pipe-step.active {
             border-color: var(--success);
-            background: rgba(34, 197, 94, 0.1);
+            background: rgba(0,210,106,0.05);
         }
         
-        .pipeline-num {
-            font-size: 24px;
-            font-weight: 700;
+        .pipe-num {
+            font-size: 28px;
+            font-weight: 800;
             color: var(--accent);
             margin-bottom: 4px;
         }
         
-        .pipeline-label {
-            font-size: 13px;
-            color: var(--text-secondary);
+        .pipe-label {
+            font-size: 14px;
             font-weight: 500;
+            color: var(--text-secondary);
         }
         
-        .pipeline-arrow {
+        .pipe-arrow {
+            font-size: 24px;
             color: var(--text-muted);
-            font-size: 20px;
         }
         
-        /* Navigation */
-        nav {
-            padding: 24px 0;
-            border-bottom: 1px solid var(--border);
+        /* ===== NAV ===== */
+        .nav {
             position: sticky;
             top: 0;
-            background: rgba(10, 10, 12, 0.95);
-            backdrop-filter: blur(10px);
             z-index: 100;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 0;
         }
         
-        .nav-tabs {
+        .nav-inner {
             display: flex;
             gap: 8px;
             justify-content: center;
             flex-wrap: wrap;
         }
         
-        .nav-tab {
+        .nav-btn {
             padding: 10px 20px;
             background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border: 1px solid transparent;
+            border-radius: 10px;
             color: var(--text-secondary);
             font-size: 14px;
             font-weight: 500;
             cursor: pointer;
             transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
         }
         
-        .nav-tab:hover {
-            border-color: var(--border-light);
-            color: var(--text-primary);
+        .nav-btn:hover {
+            color: var(--text);
+            background: var(--bg-card);
         }
         
-        .nav-tab.active {
+        .nav-btn.active {
             background: var(--accent);
-            border-color: var(--accent);
             color: white;
+            border-color: var(--accent);
         }
         
-        .nav-tab .badge {
+        .nav-btn .tag {
+            display: inline-block;
             padding: 2px 8px;
             background: rgba(255,255,255,0.2);
-            border-radius: 4px;
+            border-radius: 6px;
             font-size: 11px;
-            font-weight: 600;
+            margin-left: 6px;
         }
         
-        /* Main Content */
-        main {
-            padding: 48px 0 80px;
+        /* ===== MAIN ===== */
+        main { padding: 60px 0 100px; }
+        
+        .section { display: none; animation: fadeIn 0.4s ease; }
+        .section.active { display: block; }
+        
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 48px;
         }
         
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.3s ease;
+        .section-header h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 12px;
         }
         
-        .tab-content.active { display: block; }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .section-header p {
+            color: var(--text-secondary);
+            font-size: 18px;
         }
         
-        /* Cards */
+        /* ===== CARDS ===== */
         .card {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px;
+            border-radius: 20px;
+            padding: 32px;
             margin-bottom: 24px;
+            transition: all 0.3s ease;
         }
         
-        .card-highlight {
-            background: linear-gradient(135deg, rgba(249, 115, 22, 0.08), rgba(249, 115, 22, 0.02));
-            border-color: rgba(249, 115, 22, 0.3);
+        .card:hover {
+            border-color: var(--border-light);
+        }
+        
+        .card-accent {
+            background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(255,107,53,0.02));
+            border-color: rgba(255,107,53,0.3);
         }
         
         .card h3 {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
         
         .card p {
@@ -252,7 +314,7 @@
             line-height: 1.7;
         }
         
-        /* Grid */
+        /* ===== GRID ===== */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -267,175 +329,84 @@
         
         @media (max-width: 768px) {
             .grid-2, .grid-3 { grid-template-columns: 1fr; }
-            h1 { font-size: 32px; }
             .pipeline { flex-direction: column; }
-            .pipeline-arrow { transform: rotate(90deg); }
+            .pipe-arrow { transform: rotate(90deg); }
         }
         
-        /* Code Block */
-        .code-block {
-            background: #0d0d0f;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            font-family: 'SF Mono', 'Fira Code', monospace;
-            font-size: 13px;
-            line-height: 1.8;
-            overflow-x: auto;
-            white-space: pre;
-        }
-        
-        .code-block .comment { color: var(--text-muted); }
-        .code-block .key { color: var(--accent); }
-        .code-block .value { color: var(--info); }
-        .code-block .success { color: var(--success); }
-        .code-block .warning { color: var(--warning); }
-        
-        /* Comparison */
+        /* ===== COMPARISON ===== */
         .comparison {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 24px;
         }
         
-        .comparison-box {
-            padding: 24px;
-            border-radius: 12px;
+        .comp-box {
+            padding: 28px;
+            border-radius: 16px;
         }
         
-        .comparison-box.before {
-            background: rgba(239, 68, 68, 0.08);
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .comp-box.bad {
+            background: rgba(255,71,87,0.08);
+            border: 1px solid rgba(255,71,87,0.3);
         }
         
-        .comparison-box.after {
-            background: rgba(34, 197, 94, 0.08);
-            border: 1px solid rgba(34, 197, 94, 0.3);
+        .comp-box.good {
+            background: rgba(0,210,106,0.08);
+            border: 1px solid rgba(0,210,106,0.3);
         }
         
-        .comparison-box h4 {
-            font-size: 16px;
+        .comp-box h4 {
+            font-size: 18px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
         }
         
-        /* Timeline */
-        .timeline {
-            margin: 16px 0;
-        }
+        /* ===== TIMELINE ===== */
+        .timeline { margin: 16px 0; }
         
-        .timeline-item {
+        .tl-item {
             display: flex;
             align-items: flex-start;
-            gap: 12px;
-            padding: 12px 0;
+            gap: 16px;
+            padding: 14px 0;
             border-left: 2px solid var(--border);
-            padding-left: 20px;
+            padding-left: 24px;
             margin-left: 8px;
             position: relative;
         }
         
-        .timeline-item::before {
+        .tl-item::before {
             content: '';
             position: absolute;
-            left: -6px;
-            top: 16px;
-            width: 10px;
-            height: 10px;
+            left: -7px;
+            top: 18px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
             background: var(--text-muted);
         }
         
-        .timeline-item.done::before { background: var(--success); }
-        .timeline-item.error::before { background: var(--danger); }
+        .tl-item.done::before { background: var(--success); }
+        .tl-item.error::before { background: var(--danger); }
         
-        .timeline-time {
-            font-size: 12px;
+        .tl-time {
+            font-size: 13px;
             font-weight: 600;
             color: var(--text-muted);
-            min-width: 60px;
+            min-width: 70px;
         }
         
-        .timeline-content {
+        .tl-text {
             color: var(--text-secondary);
-            font-size: 14px;
-        }
-        
-        /* Feature Cards */
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            transition: all 0.2s ease;
-        }
-        
-        .feature-card:hover {
-            border-color: var(--border-light);
-            transform: translateY(-2px);
-        }
-        
-        .feature-icon {
-            font-size: 28px;
-            margin-bottom: 16px;
-        }
-        
-        .feature-card h4 {
             font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 8px;
         }
         
-        .feature-card p {
-            font-size: 13px;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-        
-        /* Stats */
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 16px;
-            margin: 32px 0;
-        }
-        
-        .stat-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 24px;
-            text-align: center;
-        }
-        
-        .stat-value {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--success);
-            margin-bottom: 4px;
-        }
-        
-        .stat-label {
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-        
-        .stat-note {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-top: 8px;
-            font-style: italic;
-        }
-        
-        @media (max-width: 768px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        
-        /* Table */
-        .table-wrapper {
+        /* ===== TABLE ===== */
+        .table-wrap {
             overflow-x: auto;
             border-radius: 12px;
             border: 1px solid var(--border);
+            margin: 16px 0;
         }
         
         table {
@@ -444,40 +415,58 @@
         }
         
         th, td {
-            padding: 14px 16px;
+            padding: 14px 18px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
         
         th {
-            background: var(--bg-secondary);
+            background: var(--bg-card);
             font-weight: 600;
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-secondary);
         }
         
         td {
-            font-size: 14px;
+            font-size: 15px;
             color: var(--text-secondary);
         }
         
         tr:last-child td { border-bottom: none; }
         
-        /* Chat */
-        .chat-container {
-            background: #0d0d0f;
+        /* ===== CODE ===== */
+        .code {
+            background: #0d0d0d;
+            border: 1px solid var(--border);
             border-radius: 12px;
             padding: 20px;
-        }
-        
-        .chat-msg {
+            font-family: 'SF Mono', 'Fira Code', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-x: auto;
+            white-space: pre;
             margin: 16px 0;
         }
         
+        .code .cm { color: #555; }
+        .code .key { color: var(--accent); }
+        .code .val { color: #7dd3fc; }
+        .code .ok { color: var(--success); }
+        .code .warn { color: var(--warning); }
+        
+        /* ===== CHAT ===== */
+        .chat {
+            background: #0a0a0a;
+            border-radius: 16px;
+            padding: 24px;
+            margin: 16px 0;
+        }
+        
+        .chat-msg { margin: 16px 0; }
         .chat-msg.user { text-align: right; }
         
         .chat-label {
-            font-size: 11px;
+            font-size: 12px;
             color: var(--text-muted);
             margin-bottom: 6px;
             font-weight: 500;
@@ -485,16 +474,16 @@
         
         .chat-bubble {
             display: inline-block;
-            padding: 14px 18px;
-            border-radius: 12px;
+            padding: 14px 20px;
+            border-radius: 16px;
             max-width: 85%;
             text-align: left;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.6;
         }
         
         .chat-msg.user .chat-bubble {
-            background: var(--info);
+            background: #2563eb;
             color: white;
             border-bottom-right-radius: 4px;
         }
@@ -502,24 +491,58 @@
         .chat-msg.system .chat-bubble {
             background: var(--bg-card);
             border: 1px solid var(--border);
+            color: var(--text-secondary);
             border-bottom-left-radius: 4px;
         }
         
-        .chat-msg.vibeops .chat-bubble {
-            background: rgba(249, 115, 22, 0.1);
-            border: 1px solid rgba(249, 115, 22, 0.3);
+        .chat-msg.vibe .chat-bubble {
+            background: var(--accent-glow);
+            border: 1px solid rgba(255,107,53,0.3);
             border-bottom-left-radius: 4px;
         }
         
-        /* Demo */
+        /* ===== FEATURE CARDS ===== */
+        .feat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feat-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent);
+            box-shadow: 0 8px 32px var(--accent-glow);
+        }
+        
+        .feat-icon {
+            font-size: 32px;
+            margin-bottom: 16px;
+        }
+        
+        .feat-card h4 {
+            font-size: 17px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .feat-card p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+        
+        /* ===== DEMO ===== */
         .demo-input {
             width: 100%;
-            padding: 16px 20px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            color: var(--text-primary);
-            font-size: 15px;
+            padding: 18px 24px;
+            background: var(--bg-elevated);
+            border: 2px solid var(--border);
+            border-radius: 14px;
+            color: var(--text);
+            font-size: 16px;
             font-family: inherit;
             transition: all 0.2s ease;
         }
@@ -527,109 +550,85 @@
         .demo-input:focus {
             outline: none;
             border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
         }
         
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: inherit;
-        }
-        
-        .btn-primary {
-            background: var(--accent);
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: var(--accent-dark);
-            transform: translateY(-1px);
-        }
-        
-        .btn-secondary {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            color: var(--text-secondary);
-        }
-        
-        .btn-secondary:hover {
-            border-color: var(--border-light);
-            color: var(--text-primary);
-        }
-        
-        .btn-group {
+        .demo-btns {
             display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
+            gap: 12px;
             margin-top: 16px;
+            flex-wrap: wrap;
         }
         
-        /* Result Box */
         .result-box {
             margin-top: 20px;
-            padding: 20px;
-            border-radius: 12px;
+            padding: 24px;
+            border-radius: 14px;
             display: none;
-            animation: slideIn 0.3s ease;
+            animation: slideUp 0.3s ease;
         }
         
-        @keyframes slideIn {
+        @keyframes slideUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
         
         .result-box.show { display: block; }
+        .result-box.info { background: rgba(37,99,235,0.1); border: 1px solid rgba(37,99,235,0.3); }
+        .result-box.warn { background: rgba(255,193,7,0.1); border: 1px solid rgba(255,193,7,0.3); }
+        .result-box.success { background: rgba(0,210,106,0.1); border: 1px solid rgba(0,210,106,0.3); }
         
-        .result-box.info {
-            background: rgba(59, 130, 246, 0.1);
-            border: 1px solid rgba(59, 130, 246, 0.3);
+        /* ===== STATS ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin: 40px 0;
         }
         
-        .result-box.warning {
-            background: rgba(234, 179, 8, 0.1);
-            border: 1px solid rgba(234, 179, 8, 0.3);
-        }
-        
-        .result-box.success {
-            background: rgba(34, 197, 94, 0.1);
-            border: 1px solid rgba(34, 197, 94, 0.3);
-        }
-        
-        /* Section Header */
-        .section-header {
+        .stat {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px;
             text-align: center;
-            margin-bottom: 40px;
         }
         
-        .section-header h2 {
-            font-size: 28px;
-            font-weight: 600;
-            margin-bottom: 12px;
+        .stat-val {
+            font-size: 36px;
+            font-weight: 800;
+            color: var(--success);
+            margin-bottom: 4px;
         }
         
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 16px;
+        .stat-label {
+            font-size: 14px;
+            color: var(--text-muted);
         }
         
-        /* Footer */
+        .stat-note {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+        
+        @media (max-width: 768px) {
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .comparison { grid-template-columns: 1fr; }
+        }
+        
+        /* ===== FOOTER ===== */
         footer {
             border-top: 1px solid var(--border);
-            padding: 48px 0;
+            padding: 60px 0;
             text-align: center;
-            background: var(--bg-secondary);
+            background: var(--bg-elevated);
         }
         
         .footer-brand {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 24px;
+            font-weight: 700;
             margin-bottom: 8px;
         }
         
@@ -637,24 +636,29 @@
         
         .footer-desc {
             color: var(--text-muted);
-            font-size: 14px;
             margin-bottom: 24px;
         }
         
         .footer-links {
             display: flex;
             justify-content: center;
-            gap: 24px;
+            gap: 32px;
         }
         
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 14px;
+            font-size: 15px;
             transition: color 0.2s;
         }
         
         .footer-links a:hover { color: var(--accent); }
+        
+        .footer-copy {
+            margin-top: 32px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
         
         /* Utilities */
         .text-success { color: var(--success); }
@@ -662,624 +666,479 @@
         .text-danger { color: var(--danger); }
         .text-accent { color: var(--accent); }
         .text-muted { color: var(--text-muted); }
-        .mt-4 { margin-top: 24px; }
-        .mb-4 { margin-bottom: 24px; }
+        .mt-6 { margin-top: 48px; }
     </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <div class="logo-icon">⚡</div>
-                <span class="logo-text">VibeOps</span>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <div class="badge">
+            <span>⚡</span>
+            <span>바이브 코딩 개선 AI 아이디어 공모전</span>
+        </div>
+        <h1>
+            바이브 코딩에<br>
+            <span class="gradient">품질 파이프라인</span>을
+        </h1>
+        <p class="hero-desc">
+            AI에게 코드를 요청하기 전에 스펙을 확정하고,<br>
+            생성 후에는 자동으로 검증합니다
+        </p>
+        <div class="hero-cta">
+            <a href="#demo" class="btn btn-primary" onclick="showSection('demo')">⚡ 데모 체험하기</a>
+            <a href="#problem" class="btn btn-secondary" onclick="showSection('problem')">자세히 알아보기 →</a>
+        </div>
+    </div>
+</section>
+
+<!-- PIPELINE -->
+<section class="pipeline-section">
+    <div class="container">
+        <div class="pipeline">
+            <div class="pipe-step" id="s1">
+                <div class="pipe-num">1</div>
+                <div class="pipe-label">Spec</div>
             </div>
-            <h1>바이브 코딩을 위한 품질 파이프라인</h1>
-            <p class="tagline">AI 코드 생성 전에 스펙을 확정하고, 생성 후에 자동 검증합니다</p>
-            <div class="hero-badge">
-                <span>💡</span>
-                <span>핵심 아이디어: "코드 생성 전, 스펙부터 확정하라"</span>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" id="s2">
+                <div class="pipe-num">2</div>
+                <div class="pipe-label">Verify</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" id="s3">
+                <div class="pipe-num">3</div>
+                <div class="pipe-label">Generate</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" id="s4">
+                <div class="pipe-num">4</div>
+                <div class="pipe-label">Validate</div>
+            </div>
+            <div class="pipe-arrow">→</div>
+            <div class="pipe-step" id="s5">
+                <div class="pipe-num">5</div>
+                <div class="pipe-label">Document</div>
             </div>
         </div>
-    </header>
-    
-    <section class="pipeline-section">
-        <div class="container">
-            <div class="pipeline">
-                <div class="pipeline-step" id="step1">
-                    <div class="pipeline-num">1</div>
-                    <div class="pipeline-label">Spec</div>
-                </div>
-                <div class="pipeline-arrow">→</div>
-                <div class="pipeline-step" id="step2">
-                    <div class="pipeline-num">2</div>
-                    <div class="pipeline-label">Verify</div>
-                </div>
-                <div class="pipeline-arrow">→</div>
-                <div class="pipeline-step" id="step3">
-                    <div class="pipeline-num">3</div>
-                    <div class="pipeline-label">Generate</div>
-                </div>
-                <div class="pipeline-arrow">→</div>
-                <div class="pipeline-step" id="step4">
-                    <div class="pipeline-num">4</div>
-                    <div class="pipeline-label">Validate</div>
-                </div>
-                <div class="pipeline-arrow">→</div>
-                <div class="pipeline-step" id="step5">
-                    <div class="pipeline-num">5</div>
-                    <div class="pipeline-label">Document</div>
-                </div>
-            </div>
+    </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+    <div class="container">
+        <div class="nav-inner">
+            <button class="nav-btn active" onclick="showSection('problem')">문제 정의</button>
+            <button class="nav-btn" onclick="showSection('spec')">Spec Gate<span class="tag">핵심</span></button>
+            <button class="nav-btn" onclick="showSection('verify')">Verify Gate</button>
+            <button class="nav-btn" onclick="showSection('validate')">Validate Gate</button>
+            <button class="nav-btn" onclick="showSection('document')">Auto Document</button>
+            <button class="nav-btn" onclick="showSection('demo')">⚡ 데모</button>
         </div>
-    </section>
-    
-    <nav>
-        <div class="container">
-            <div class="nav-tabs">
-                <button class="nav-tab active" onclick="showTab('problem')">문제 정의</button>
-                <button class="nav-tab" onclick="showTab('spec')">Spec Gate <span class="badge">핵심</span></button>
-                <button class="nav-tab" onclick="showTab('verify')">Verify Gate</button>
-                <button class="nav-tab" onclick="showTab('validate')">Validate Gate</button>
-                <button class="nav-tab" onclick="showTab('document')">Auto Document</button>
-                <button class="nav-tab" onclick="showTab('demo')">⚡ 데모</button>
+    </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+    <div class="container">
+        
+        <!-- PROBLEM -->
+        <div id="problem" class="section active">
+            <div class="section-header">
+                <h2>🎯 문제 정의</h2>
+                <p>바이브 코딩에는 품질 관리 프로세스가 없습니다</p>
             </div>
-        </div>
-    </nav>
-    
-    <main>
-        <div class="container">
-            <!-- Tab: Problem -->
-            <div id="problem" class="tab-content active">
-                <div class="card card-highlight">
-                    <h3>🎯 문제: 바이브 코딩에 프로세스가 없다</h3>
-                    <p>
-                        바이브 코딩은 빠르게 코드를 만들어내지만, <strong>품질 관리 프로세스가 부재</strong>합니다.<br>
-                        전통적 개발에는 요구사항 분석 → 설계 → 개발 → 테스트 → 리뷰가 있지만,<br>
-                        바이브 코딩은 "만들어줘 → 코드 → 커밋"으로 끝나는 경우가 많습니다.
-                    </p>
-                </div>
-                
-                <div class="comparison mt-4">
-                    <div class="comparison-box before">
-                        <h4>❌ 현재 바이브 코딩 워크플로우</h4>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <span class="timeline-time">요청</span>
-                                <span class="timeline-content">"로그인 기능 만들어줘"</span>
-                            </div>
-                            <div class="timeline-item error">
-                                <span class="timeline-time">AI 생성</span>
-                                <span class="timeline-content">OAuth 코드 생성 (금지 정책을 모름)</span>
-                            </div>
-                            <div class="timeline-item error">
-                                <span class="timeline-time">커밋</span>
-                                <span class="timeline-content">검토 없이 바로 커밋</span>
-                            </div>
-                            <div class="timeline-item error">
-                                <span class="timeline-time">나중에</span>
-                                <span class="timeline-content">"왜 이렇게 만들었지?" - 맥락 소실</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="comparison-box after">
-                        <h4>✅ VibeOps 적용 워크플로우</h4>
-                        <div class="timeline">
-                            <div class="timeline-item done">
-                                <span class="timeline-time">1. Spec</span>
-                                <span class="timeline-content">요청을 구조화된 스펙으로 변환</span>
-                            </div>
-                            <div class="timeline-item done">
-                                <span class="timeline-time">2. Verify</span>
-                                <span class="timeline-content">"OAuth 금지 정책과 충돌" 경고</span>
-                            </div>
-                            <div class="timeline-item done">
-                                <span class="timeline-time">3. Generate</span>
-                                <span class="timeline-content">확정된 스펙 기반 코드 생성</span>
-                            </div>
-                            <div class="timeline-item done">
-                                <span class="timeline-time">4-5</span>
-                                <span class="timeline-content">자동 검증 + 자동 문서화</span>
-                            </div>
-                        </div>
+            
+            <div class="card card-accent">
+                <h3>핵심 문제</h3>
+                <p>
+                    전통적 개발에는 <strong>요구사항 → 설계 → 개발 → 테스트 → 리뷰</strong>의 프로세스가 있습니다.<br>
+                    반면 바이브 코딩은 <strong style="color:var(--danger)">"만들어줘" → 코드 → 커밋</strong>으로 끝나는 경우가 많습니다.
+                </p>
+            </div>
+            
+            <div class="comparison" style="margin-top: 32px;">
+                <div class="comp-box bad">
+                    <h4>❌ 현재 바이브 코딩</h4>
+                    <div class="timeline">
+                        <div class="tl-item"><span class="tl-time">요청</span><span class="tl-text">"로그인 기능 만들어줘"</span></div>
+                        <div class="tl-item error"><span class="tl-time">AI 생성</span><span class="tl-text">OAuth 코드 생성 (금지 정책을 모름)</span></div>
+                        <div class="tl-item error"><span class="tl-time">커밋</span><span class="tl-text">검토 없이 바로 커밋</span></div>
+                        <div class="tl-item error"><span class="tl-time">나중에</span><span class="tl-text">"왜 이렇게 만들었지?" - 맥락 소실</span></div>
                     </div>
                 </div>
-                
-                <div class="card mt-4">
-                    <h3>📊 왜 프로세스가 필요한가?</h3>
-                    <div class="table-wrapper mt-4">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>항목</th>
-                                    <th>전통적 개발</th>
-                                    <th>현재 바이브 코딩</th>
-                                    <th>VibeOps 적용</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>스펙 문서화</td>
-                                    <td>필수 (기획서, PRD)</td>
-                                    <td class="text-danger">없음</td>
-                                    <td class="text-success">자동 생성</td>
-                                </tr>
-                                <tr>
-                                    <td>코드 리뷰</td>
-                                    <td>동료 리뷰</td>
-                                    <td class="text-danger">없거나 형식적</td>
-                                    <td class="text-success">자동 검증</td>
-                                </tr>
-                                <tr>
-                                    <td>정책 준수</td>
-                                    <td>가이드라인 참조</td>
-                                    <td class="text-danger">AI가 모름</td>
-                                    <td class="text-success">자동 주입/검증</td>
-                                </tr>
-                                <tr>
-                                    <td>의도 추적</td>
-                                    <td>ADR 문서</td>
-                                    <td class="text-danger">대화에서 소멸</td>
-                                    <td class="text-success">자동 기록</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="comp-box good">
+                    <h4>✅ VibeOps 적용</h4>
+                    <div class="timeline">
+                        <div class="tl-item done"><span class="tl-time">1. Spec</span><span class="tl-text">요청을 구조화된 스펙으로 변환</span></div>
+                        <div class="tl-item done"><span class="tl-time">2. Verify</span><span class="tl-text">"OAuth 금지 정책과 충돌" 경고</span></div>
+                        <div class="tl-item done"><span class="tl-time">3. Generate</span><span class="tl-text">확정된 스펙 기반 코드 생성</span></div>
+                        <div class="tl-item done"><span class="tl-time">4-5</span><span class="tl-text">자동 검증 + 자동 문서화</span></div>
                     </div>
                 </div>
             </div>
             
-            <!-- Tab: Spec Gate -->
-            <div id="spec" class="tab-content">
-                <div class="card card-highlight">
-                    <h3>📋 Spec Gate - 의도를 명확히 하라</h3>
-                    <p>
-                        모호한 자연어 요청을 <strong>구조화된 스펙</strong>으로 변환합니다.<br>
-                        개발자는 코드가 아닌 스펙을 확인하므로, 의도 불일치를 조기에 발견할 수 있습니다.
-                    </p>
-                </div>
-                
-                <div class="grid-2 mt-4">
-                    <div class="card">
-                        <h3>💬 기존 방식</h3>
-                        <div class="chat-container">
-                            <div class="chat-msg user">
-                                <div class="chat-label">개발자</div>
-                                <div class="chat-bubble">"로그인 기능 만들어줘"</div>
-                            </div>
-                            <div class="chat-msg system">
-                                <div class="chat-label">AI (기존)</div>
-                                <div class="chat-bubble">
-                                    네! Google OAuth로 소셜 로그인을 구현하겠습니다...
-                                    <div class="text-danger" style="margin-top: 8px; font-size: 13px;">
-                                        ⚠️ OAuth 금지 정책 위반 (AI는 이를 모름)
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <h3>✨ VibeOps 적용</h3>
-                        <div class="chat-container">
-                            <div class="chat-msg user">
-                                <div class="chat-label">개발자</div>
-                                <div class="chat-bubble">"로그인 기능 만들어줘"</div>
-                            </div>
-                            <div class="chat-msg vibeops">
-                                <div class="chat-label">⚡ VibeOps Spec Gate</div>
-                                <div class="chat-bubble">
-                                    <strong>스펙을 확인해 주세요:</strong><br><br>
-                                    <span class="text-accent">feature:</span> 사용자 로그인<br>
-                                    <span class="text-accent">auth:</span> JWT (자체 인증)<br>
-                                    <span class="text-accent">constraints:</span> OAuth 금지 [C001]<br><br>
-                                    <span class="text-success">이대로 진행할까요? [Y/n/edit]</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="card mt-4">
-                    <h3>📄 자동 생성되는 스펙 파일</h3>
-                    <div class="code-block"><span class="comment"># VibeOps가 자동 생성한 스펙</span>
-<span class="key">spec:</span>
-  <span class="key">id:</span> <span class="value">SPEC-001</span>
-  <span class="key">feature:</span> <span class="value">사용자 로그인</span>
-  <span class="key">created:</span> <span class="value">2026-02-03</span>
-
-<span class="key">requirements:</span>
-  - <span class="value">이메일/비밀번호 기반 인증</span>
-  - <span class="value">JWT 토큰 발급</span>
-  - <span class="value">비밀번호 bcrypt 해싱</span>
-
-<span class="key">constraints:</span>
-  - <span class="key">ref:</span> <span class="value">C001</span>  <span class="comment"># OAuth 사용 금지</span>
-
-<span class="key">original_request:</span> <span class="value">"로그인 기능 만들어줘"</span></div>
+            <div class="card" style="margin-top: 32px;">
+                <h3>📊 왜 프로세스가 필요한가?</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>항목</th>
+                                <th>전통적 개발</th>
+                                <th>현재 바이브 코딩</th>
+                                <th>VibeOps 적용</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>스펙 문서화</td><td>필수 (기획서)</td><td class="text-danger">없음</td><td class="text-success">자동 생성</td></tr>
+                            <tr><td>코드 리뷰</td><td>동료 리뷰</td><td class="text-danger">없거나 형식적</td><td class="text-success">자동 검증</td></tr>
+                            <tr><td>정책 준수</td><td>가이드라인</td><td class="text-danger">AI가 모름</td><td class="text-success">자동 주입</td></tr>
+                            <tr><td>의도 추적</td><td>ADR 문서</td><td class="text-danger">대화에서 소멸</td><td class="text-success">자동 기록</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+        </div>
+        
+        <!-- SPEC -->
+        <div id="spec" class="section">
+            <div class="section-header">
+                <h2>📋 Spec Gate</h2>
+                <p>모호한 요청을 구조화된 스펙으로 변환합니다</p>
+            </div>
             
-            <!-- Tab: Verify Gate -->
-            <div id="verify" class="tab-content">
-                <div class="card card-highlight">
-                    <h3>🔍 Verify Gate - 충돌을 사전 감지</h3>
-                    <p>
-                        새 요청이 <strong>기존 결정/정책과 충돌</strong>하는지 코드 생성 "전"에 감지합니다.<br>
-                        충돌 발견 시 대안을 제시하여, 불필요한 재작업을 방지합니다.
-                    </p>
-                </div>
-                
-                <div class="card mt-4">
-                    <h3>⚠️ 충돌 감지 예시</h3>
-                    <div class="chat-container">
+            <div class="grid-2">
+                <div class="card">
+                    <h3>💬 기존 방식</h3>
+                    <div class="chat">
                         <div class="chat-msg user">
                             <div class="chat-label">개발자</div>
-                            <div class="chat-bubble">"소셜 로그인도 추가해줘"</div>
+                            <div class="chat-bubble">"로그인 기능 만들어줘"</div>
                         </div>
-                        <div class="chat-msg vibeops">
-                            <div class="chat-label">⚡ VibeOps Verify Gate</div>
-                            <div class="chat-bubble" style="background: rgba(234, 179, 8, 0.15); border-color: rgba(234, 179, 8, 0.4);">
-                                <strong class="text-warning">⚠️ 정책 충돌 감지</strong><br><br>
-                                <strong>요청:</strong> 소셜 로그인 추가<br>
-                                <strong>충돌:</strong> [C001] OAuth/소셜 로그인 사용 금지<br>
-                                <strong>사유:</strong> 보안 정책상 외부 IdP 연동 불가<br><br>
-                                <span class="text-warning">[1] 정책 유지 → 자체 인증으로 구현</span><br>
-                                <span class="text-warning">[2] 정책 수정 → 예외 추가 후 진행</span><br>
-                                <span class="text-warning">[3] 요청 취소</span>
+                        <div class="chat-msg system">
+                            <div class="chat-label">AI (기존)</div>
+                            <div class="chat-bubble">
+                                네! Google OAuth로 소셜 로그인을 구현하겠습니다...
+                                <div class="text-danger" style="margin-top:8px;font-size:13px">⚠️ OAuth 금지 정책 위반</div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
-                <div class="grid-2 mt-4">
-                    <div class="card">
-                        <h3>❌ Verify Gate 없을 때</h3>
-                        <div class="timeline">
-                            <div class="timeline-item">
-                                <span class="timeline-time">1분</span>
-                                <span class="timeline-content">AI가 OAuth 코드 생성</span>
-                            </div>
-                            <div class="timeline-item">
-                                <span class="timeline-time">30분</span>
-                                <span class="timeline-content">개발자가 통합 테스트</span>
-                            </div>
-                            <div class="timeline-item error">
-                                <span class="timeline-time">2시간</span>
-                                <span class="timeline-content">코드 리뷰에서 정책 위반 발견</span>
-                            </div>
-                            <div class="timeline-item error">
-                                <span class="timeline-time">4시간+</span>
-                                <span class="timeline-content">코드 재작업</span>
-                            </div>
+                <div class="card">
+                    <h3>✨ VibeOps 적용</h3>
+                    <div class="chat">
+                        <div class="chat-msg user">
+                            <div class="chat-label">개발자</div>
+                            <div class="chat-bubble">"로그인 기능 만들어줘"</div>
                         </div>
-                    </div>
-                    <div class="card">
-                        <h3>✅ Verify Gate 적용 시</h3>
-                        <div class="timeline">
-                            <div class="timeline-item done">
-                                <span class="timeline-time">1초</span>
-                                <span class="timeline-content">요청 분석 시작</span>
-                            </div>
-                            <div class="timeline-item done">
-                                <span class="timeline-time">2초</span>
-                                <span class="timeline-content">정책 충돌 감지</span>
-                            </div>
-                            <div class="timeline-item done">
-                                <span class="timeline-time">5초</span>
-                                <span class="timeline-content">대안 제시</span>
-                            </div>
-                            <div class="timeline-item done">
-                                <span class="timeline-time">완료</span>
-                                <span class="timeline-content">올바른 방향으로 진행</span>
+                        <div class="chat-msg vibe">
+                            <div class="chat-label">⚡ VibeOps Spec Gate</div>
+                            <div class="chat-bubble">
+                                <strong>스펙을 확인해 주세요:</strong><br><br>
+                                <span class="text-accent">feature:</span> 사용자 로그인<br>
+                                <span class="text-accent">auth:</span> JWT (자체 인증)<br>
+                                <span class="text-accent">constraints:</span> OAuth 금지 [C001]<br><br>
+                                <span class="text-success">이대로 진행할까요? [Y/n/edit]</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Tab: Validate Gate -->
-            <div id="validate" class="tab-content">
-                <div class="card card-highlight">
-                    <h3>✅ Validate Gate - 생성 후 자동 검증</h3>
-                    <p>
-                        AI가 코드를 생성한 "후" <strong>자동으로 품질을 검증</strong>합니다.<br>
-                        정책 준수, 보안 취약점, 코드 일관성을 체크합니다.
-                    </p>
+            <div class="card" style="margin-top:24px">
+                <h3>📄 자동 생성되는 스펙 파일</h3>
+                <div class="code"><span class="cm"># VibeOps가 자동 생성한 스펙</span>
+<span class="key">spec:</span>
+  <span class="key">id:</span> <span class="val">SPEC-001</span>
+  <span class="key">feature:</span> <span class="val">사용자 로그인</span>
+  <span class="key">requirements:</span>
+    - <span class="val">이메일/비밀번호 기반 인증</span>
+    - <span class="val">JWT 토큰 발급</span>
+    - <span class="val">비밀번호 bcrypt 해싱</span>
+  <span class="key">constraints:</span>
+    - <span class="key">ref:</span> <span class="val">C001</span>  <span class="cm"># OAuth 사용 금지</span></div>
+            </div>
+        </div>
+        
+        <!-- VERIFY -->
+        <div id="verify" class="section">
+            <div class="section-header">
+                <h2>🔍 Verify Gate</h2>
+                <p>기존 정책과의 충돌을 코드 생성 전에 감지합니다</p>
+            </div>
+            
+            <div class="card card-accent">
+                <h3>⚠️ 충돌 감지 예시</h3>
+                <div class="chat">
+                    <div class="chat-msg user">
+                        <div class="chat-label">개발자</div>
+                        <div class="chat-bubble">"소셜 로그인도 추가해줘"</div>
+                    </div>
+                    <div class="chat-msg vibe">
+                        <div class="chat-label">⚡ VibeOps Verify Gate</div>
+                        <div class="chat-bubble" style="background:rgba(255,193,7,0.1);border-color:rgba(255,193,7,0.4)">
+                            <strong class="text-warning">⚠️ 정책 충돌 감지</strong><br><br>
+                            <strong>요청:</strong> 소셜 로그인 추가<br>
+                            <strong>충돌:</strong> [C001] OAuth/소셜 로그인 사용 금지<br>
+                            <strong>사유:</strong> 보안 정책상 외부 IdP 연동 불가<br><br>
+                            <span class="text-warning">[1] 자체 인증으로 구현 [2] 정책 예외 추가 [3] 취소</span>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="grid-3 mt-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">🛡️</div>
-                        <h4>정책 검사</h4>
-                        <p>금지된 키워드/패턴이 코드에 포함되었는지 검사합니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔒</div>
-                        <h4>보안 검사</h4>
-                        <p>하드코딩된 비밀, SQL 인젝션 등 기본적인 보안 취약점을 감지합니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🎨</div>
-                        <h4>일관성 검사</h4>
-                        <p>기존 코드베이스의 스타일/패턴과 일치하는지 확인합니다.</p>
+            </div>
+            
+            <div class="grid-2" style="margin-top:24px">
+                <div class="card">
+                    <h3>❌ Verify Gate 없을 때</h3>
+                    <div class="timeline">
+                        <div class="tl-item"><span class="tl-time">1분</span><span class="tl-text">AI가 OAuth 코드 생성</span></div>
+                        <div class="tl-item"><span class="tl-time">30분</span><span class="tl-text">개발자가 통합 테스트</span></div>
+                        <div class="tl-item error"><span class="tl-time">2시간</span><span class="tl-text">코드 리뷰에서 정책 위반 발견</span></div>
+                        <div class="tl-item error"><span class="tl-time">4시간+</span><span class="tl-text">코드 재작업</span></div>
                     </div>
                 </div>
-                
-                <div class="card mt-4">
-                    <h3>📊 검증 결과 예시</h3>
-                    <div class="code-block"><span class="comment">═══════════════════════════════════════════════════════════════</span>
-<span class="success">  VibeOps Validate Gate - 검증 결과</span>
-<span class="comment">═══════════════════════════════════════════════════════════════</span>
+                <div class="card">
+                    <h3>✅ Verify Gate 적용 시</h3>
+                    <div class="timeline">
+                        <div class="tl-item done"><span class="tl-time">1초</span><span class="tl-text">요청 분석</span></div>
+                        <div class="tl-item done"><span class="tl-time">2초</span><span class="tl-text">정책 충돌 감지</span></div>
+                        <div class="tl-item done"><span class="tl-time">5초</span><span class="tl-text">대안 제시</span></div>
+                        <div class="tl-item done"><span class="tl-time">완료</span><span class="tl-text">올바른 방향으로 진행</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- VALIDATE -->
+        <div id="validate" class="section">
+            <div class="section-header">
+                <h2>✅ Validate Gate</h2>
+                <p>AI가 생성한 코드를 자동으로 검증합니다</p>
+            </div>
+            
+            <div class="grid-3">
+                <div class="feat-card">
+                    <div class="feat-icon">🛡️</div>
+                    <h4>정책 검사</h4>
+                    <p>금지된 키워드/패턴이 코드에 포함되었는지 검사합니다</p>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon">🔒</div>
+                    <h4>보안 검사</h4>
+                    <p>하드코딩된 비밀, SQL 인젝션 등 기본 취약점을 감지합니다</p>
+                </div>
+                <div class="feat-card">
+                    <div class="feat-icon">🎨</div>
+                    <h4>일관성 검사</h4>
+                    <p>기존 코드베이스의 스타일/패턴과 일치하는지 확인합니다</p>
+                </div>
+            </div>
+            
+            <div class="card" style="margin-top:24px">
+                <h3>📊 검증 결과 예시</h3>
+                <div class="code"><span class="cm">═══════════════════════════════════════════════════════════</span>
+<span class="ok">  VibeOps Validate Gate - 검증 결과</span>
+<span class="cm">═══════════════════════════════════════════════════════════</span>
 
-<span class="value">📁 파일:</span> src/auth/login.py
+<span class="val">📁 파일:</span> src/auth/login.py
 
-<span class="success">✅ 정책 검사: PASSED</span>
+<span class="ok">✅ 정책 검사: PASSED</span>
    • OAuth 관련 코드 없음
    • 외부 CDN 참조 없음
 
-<span class="success">✅ 보안 검사: PASSED</span>
+<span class="ok">✅ 보안 검사: PASSED</span>
    • 하드코딩된 비밀 없음
    • bcrypt 해싱 사용 확인
 
-<span class="success">✅ 일관성 검사: PASSED</span>
+<span class="ok">✅ 일관성 검사: PASSED</span>
    • 네이밍 컨벤션 준수
 
-<span class="comment">═══════════════════════════════════════════════════════════════</span>
-<span class="success">  모든 검증 통과 - 커밋 가능</span>
-<span class="comment">═══════════════════════════════════════════════════════════════</span></div>
-                </div>
+<span class="cm">═══════════════════════════════════════════════════════════</span>
+<span class="ok">  모든 검증 통과 - 커밋 가능</span>
+<span class="cm">═══════════════════════════════════════════════════════════</span></div>
+            </div>
+        </div>
+        
+        <!-- DOCUMENT -->
+        <div id="document" class="section">
+            <div class="section-header">
+                <h2>📝 Auto Document</h2>
+                <p>모든 스펙과 결정이 자동으로 문서화됩니다</p>
             </div>
             
-            <!-- Tab: Document -->
-            <div id="document" class="tab-content">
-                <div class="card card-highlight">
-                    <h3>📝 Auto Document - 자동 문서화</h3>
-                    <p>
-                        모든 스펙과 결정이 <strong>자동으로 문서화</strong>됩니다.<br>
-                        "왜 이렇게 만들었지?"라는 질문에 언제든 답할 수 있습니다.
-                    </p>
-                </div>
-                
-                <div class="grid-2 mt-4">
-                    <div class="card">
-                        <h3>📁 자동 생성되는 구조</h3>
-                        <div class="code-block"><span class="key">.vibe/</span>
-├── <span class="value">specs/</span>           <span class="comment"># 기능별 스펙</span>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>📁 자동 생성되는 구조</h3>
+                    <div class="code"><span class="key">.vibe/</span>
+├── <span class="val">specs/</span>           <span class="cm"># 기능별 스펙</span>
 │   ├── login.yaml
 │   └── payment.yaml
-├── <span class="value">constraints/</span>     <span class="comment"># 정책/제약</span>
+├── <span class="val">constraints/</span>     <span class="cm"># 정책/제약</span>
 │   └── policies.yaml
-├── <span class="value">decisions/</span>       <span class="comment"># 기술 결정</span>
+├── <span class="val">decisions/</span>       <span class="cm"># 기술 결정</span>
 │   └── decisions.yaml
-└── <span class="key">context.yaml</span>     <span class="comment"># 프로젝트 컨텍스트</span></div>
-                    </div>
-                    <div class="card">
-                        <h3>🔍 vibe why 명령어</h3>
-                        <div class="code-block"><span class="key">$ vibe why src/auth/login.py</span>
+└── <span class="key">context.yaml</span>     <span class="cm"># 프로젝트 컨텍스트</span></div>
+                </div>
+                <div class="card">
+                    <h3>🔍 vibe why 명령어</h3>
+                    <div class="code"><span class="key">$ vibe why src/auth/login.py</span>
 
-<span class="value">📁 파일:</span> src/auth/login.py
-<span class="value">📋 스펙:</span> SPEC-001 (로그인 기능)
+<span class="val">📁 파일:</span> src/auth/login.py
+<span class="val">📋 스펙:</span> SPEC-001 (로그인 기능)
 
-<span class="success">🎯 원본 요청:</span>
+<span class="ok">🎯 원본 요청:</span>
 "로그인 기능 만들어줘"
 
-<span class="warning">📌 적용된 결정:</span>
+<span class="warn">📌 적용된 결정:</span>
 • D001: JWT 자체 인증 (OAuth 대신)
 • D002: bcrypt 해싱
 
 <span class="key">⛔ 적용된 제약:</span>
 • C001: OAuth 사용 금지</div>
-                    </div>
                 </div>
             </div>
-            
-            <!-- Tab: Demo -->
-            <div id="demo" class="tab-content">
-                <div class="card card-highlight">
-                    <h3>⚡ VibeOps 파이프라인 체험</h3>
-                    <p>요청을 입력하면 5단계 파이프라인이 어떻게 동작하는지 확인할 수 있습니다.</p>
-                </div>
-                
-                <div class="card mt-4">
-                    <h3>1️⃣ 요청 입력</h3>
-                    <input type="text" class="demo-input" id="demoInput" placeholder="예: 로그인 기능 만들어줘" value="로그인 기능 만들어줘">
-                    <div class="btn-group">
-                        <button class="btn btn-primary" onclick="runDemo()">⚡ 파이프라인 실행</button>
-                        <button class="btn btn-secondary" onclick="setDemo('소셜 로그인 추가해줘')">충돌 예시</button>
-                        <button class="btn btn-secondary" onclick="setDemo('결제 모듈 만들어줘')">정상 예시</button>
-                    </div>
-                </div>
-                <div id="demoResults"></div>
-            </div>
-            
-            <!-- Features Section -->
-            <section class="mt-4" style="padding-top: 40px; border-top: 1px solid var(--border); margin-top: 60px;">
-                <div class="section-header">
-                    <h2>VibeOps의 핵심 가치</h2>
-                    <p>바이브 코딩의 속도는 유지하면서, 품질 관리를 자동화합니다</p>
-                </div>
-                
-                <div class="grid-3">
-                    <div class="feature-card">
-                        <div class="feature-icon">📋</div>
-                        <h4>스펙 우선</h4>
-                        <p>코드 생성 전 스펙을 확정하여 의도 불일치를 방지합니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔍</div>
-                        <h4>충돌 사전 감지</h4>
-                        <p>기존 정책/결정과의 충돌을 코드 생성 전에 감지합니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">✅</div>
-                        <h4>자동 검증</h4>
-                        <p>정책, 보안, 일관성을 생성 후 자동으로 검증합니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">📝</div>
-                        <h4>자동 문서화</h4>
-                        <p>모든 스펙과 결정을 자동으로 기록하고 추적합니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🔌</div>
-                        <h4>도구 독립적</h4>
-                        <p>Cursor, Copilot, Claude 등 어떤 AI 도구와도 호환됩니다.</p>
-                    </div>
-                    <div class="feature-card">
-                        <div class="feature-icon">🚀</div>
-                        <h4>점진적 도입</h4>
-                        <p>기존 워크플로우 변경 없이 점진적으로 적용할 수 있습니다.</p>
-                    </div>
-                </div>
-            </section>
-            
-            <!-- Expected Effects -->
-            <section class="mt-4" style="padding-top: 40px; border-top: 1px solid var(--border); margin-top: 60px;">
-                <div class="section-header">
-                    <h2>기대 효과</h2>
-                    <p>VibeOps 도입 시 예상되는 개선 효과입니다</p>
-                </div>
-                
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-value">↓</div>
-                        <div class="stat-label">재작업 감소</div>
-                        <div class="stat-note">스펙 사전 확인으로<br>의도 불일치 방지</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">↓</div>
-                        <div class="stat-label">문서화 부담</div>
-                        <div class="stat-note">자동 스펙 생성으로<br>수동 문서화 불필요</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">↓</div>
-                        <div class="stat-label">온보딩 시간</div>
-                        <div class="stat-note">스펙 히스토리로<br>맥락 즉시 파악</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-value">↑</div>
-                        <div class="stat-label">코드 일관성</div>
-                        <div class="stat-note">정책 자동 검증으로<br>품질 기준 유지</div>
-                    </div>
-                </div>
-                
-                <div class="card mt-4" style="text-align: center;">
-                    <p class="text-muted" style="font-size: 13px;">
-                        * 실제 효과는 팀 규모, 프로젝트 특성, 도입 범위에 따라 달라질 수 있습니다.<br>
-                        효과 측정을 위해서는 도입 전/후 메트릭 비교가 필요합니다.
-                    </p>
-                </div>
-            </section>
         </div>
-    </main>
-    
-    <footer>
-        <div class="container">
-            <div class="footer-brand"><span>VibeOps</span></div>
-            <p class="footer-desc">바이브 코딩에도 품질 관리가 필요합니다</p>
-            <div class="footer-links">
-                <a href="https://github.com/Lova-clover/VibeMemory" target="_blank">GitHub</a>
+        
+        <!-- DEMO -->
+        <div id="demo" class="section">
+            <div class="section-header">
+                <h2>⚡ 실시간 데모</h2>
+                <p>VibeOps 파이프라인을 직접 체험해보세요</p>
             </div>
-            <p class="text-muted" style="margin-top: 24px; font-size: 12px;">바이브 코딩 개선 AI 아이디어 공모전 출품작</p>
+            
+            <div class="card card-accent">
+                <h3>1️⃣ 요청 입력</h3>
+                <input type="text" class="demo-input" id="demoInput" placeholder="예: 로그인 기능 만들어줘" value="로그인 기능 만들어줘">
+                <div class="demo-btns">
+                    <button class="btn btn-primary" onclick="runDemo()">⚡ 파이프라인 실행</button>
+                    <button class="btn btn-secondary" onclick="setDemo('소셜 로그인 추가해줘')">충돌 예시</button>
+                    <button class="btn btn-secondary" onclick="setDemo('결제 모듈 만들어줘')">정상 예시</button>
+                </div>
+            </div>
+            <div id="demoResults"></div>
         </div>
-    </footer>
+        
+        <!-- FEATURES -->
+        <section class="mt-6" style="padding-top:48px;border-top:1px solid var(--border)">
+            <div class="section-header">
+                <h2>VibeOps의 핵심 가치</h2>
+                <p>바이브 코딩의 속도는 유지하면서, 품질을 자동화합니다</p>
+            </div>
+            
+            <div class="grid-3">
+                <div class="feat-card"><div class="feat-icon">📋</div><h4>스펙 우선</h4><p>코드 생성 전 스펙을 확정하여 의도 불일치를 방지</p></div>
+                <div class="feat-card"><div class="feat-icon">🔍</div><h4>충돌 사전 감지</h4><p>기존 정책과의 충돌을 코드 생성 전에 감지</p></div>
+                <div class="feat-card"><div class="feat-icon">✅</div><h4>자동 검증</h4><p>정책, 보안, 일관성을 생성 후 자동 검증</p></div>
+                <div class="feat-card"><div class="feat-icon">📝</div><h4>자동 문서화</h4><p>모든 스펙과 결정을 자동으로 기록</p></div>
+                <div class="feat-card"><div class="feat-icon">🔌</div><h4>도구 독립적</h4><p>Cursor, Copilot, Claude 등 어떤 도구와도 호환</p></div>
+                <div class="feat-card"><div class="feat-icon">🚀</div><h4>점진적 도입</h4><p>기존 워크플로우 변경 없이 적용 가능</p></div>
+            </div>
+        </section>
+        
+        <!-- STATS -->
+        <section class="mt-6" style="padding-top:48px;border-top:1px solid var(--border)">
+            <div class="section-header">
+                <h2>기대 효과</h2>
+                <p>VibeOps 도입 시 예상되는 개선 효과</p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat"><div class="stat-val">↓</div><div class="stat-label">재작업 감소</div><div class="stat-note">스펙 사전 확인으로<br>의도 불일치 방지</div></div>
+                <div class="stat"><div class="stat-val">↓</div><div class="stat-label">문서화 부담</div><div class="stat-note">자동 스펙 생성으로<br>수동 작업 불필요</div></div>
+                <div class="stat"><div class="stat-val">↓</div><div class="stat-label">온보딩 시간</div><div class="stat-note">스펙 히스토리로<br>맥락 즉시 파악</div></div>
+                <div class="stat"><div class="stat-val">↑</div><div class="stat-label">코드 일관성</div><div class="stat-note">정책 자동 검증으로<br>품질 기준 유지</div></div>
+            </div>
+            
+            <p class="text-muted" style="text-align:center;font-size:13px;margin-top:16px">
+                * 효과는 팀 규모, 프로젝트 특성, 도입 범위에 따라 달라질 수 있습니다
+            </p>
+        </section>
+        
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <div class="footer-brand"><span>Vibe</span>Ops</div>
+        <p class="footer-desc">바이브 코딩에도 품질 관리가 필요합니다</p>
+        <div class="footer-links">
+            <a href="https://github.com/Lova-clover/VibeMemory" target="_blank">GitHub</a>
+        </div>
+        <p class="footer-copy">바이브 코딩 개선 AI 아이디어 공모전 출품작 © 2026</p>
+    </div>
+</footer>
+
+<script>
+function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+    window.scrollTo({ top: document.querySelector('.nav').offsetTop - 20, behavior: 'smooth' });
+}
+
+function setDemo(text) {
+    document.getElementById('demoInput').value = text;
+}
+
+function runDemo() {
+    const input = document.getElementById('demoInput').value.toLowerCase();
+    const hasConflict = input.includes('소셜') || input.includes('oauth') || input.includes('google');
     
-    <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.closest('.nav-tab').classList.add('active');
-        }
-        
-        function setDemo(text) {
-            document.getElementById('demoInput').value = text;
-        }
-        
-        function runDemo() {
-            const input = document.getElementById('demoInput').value.toLowerCase();
-            const hasConflict = input.includes('소셜') || input.includes('oauth') || input.includes('google');
-            
-            let html = '';
-            
-            // Step 1: Spec
-            html += `
-                <div class="card mt-4">
-                    <h3>📋 Stage 1: Spec Gate</h3>
-                    <div class="result-box info show">
-                        <strong>자동 생성된 스펙:</strong><br><br>
-                        <span class="text-accent">feature:</span> ${document.getElementById('demoInput').value}<br>
-                        <span class="text-accent">constraints:</span> [C001] OAuth 금지 적용됨<br><br>
-                        <span class="text-success">✓ 스펙 분석 완료</span>
-                    </div>
-                </div>
-            `;
-            
-            // Step 2: Verify
-            if (hasConflict) {
-                html += `
-                    <div class="card">
-                        <h3>🔍 Stage 2: Verify Gate</h3>
-                        <div class="result-box warning show">
-                            <strong class="text-warning">⚠️ 정책 충돌 감지</strong><br><br>
-                            <strong>충돌:</strong> [C001] OAuth/소셜 로그인 사용 금지<br>
-                            <strong>사유:</strong> 보안 정책상 외부 IdP 연동 불가<br><br>
-                            <span class="text-success">→ 자체 인증으로 변경하여 진행</span>
-                        </div>
-                    </div>
-                `;
-            } else {
-                html += `
-                    <div class="card">
-                        <h3>🔍 Stage 2: Verify Gate</h3>
-                        <div class="result-box success show">
-                            <strong class="text-success">✅ 정책 충돌 없음</strong><br>
-                            기존 결정/정책과 호환됩니다. 코드 생성을 진행합니다.
-                        </div>
-                    </div>
-                `;
-            }
-            
-            // Step 3: Generate
-            html += `
-                <div class="card">
-                    <h3>⚡ Stage 3: Generate</h3>
-                    <div class="result-box info show">
-                        <strong>코드 생성 완료</strong><br>
-                        확정된 스펙을 기반으로 코드를 생성했습니다.
-                    </div>
-                </div>
-            `;
-            
-            // Step 4: Validate
-            html += `
-                <div class="card">
-                    <h3>✅ Stage 4: Validate Gate</h3>
-                    <div class="result-box success show">
-                        <strong class="text-success">✅ 모든 검증 통과</strong><br><br>
-                        ✅ 정책 검사: PASSED<br>
-                        ✅ 보안 검사: PASSED<br>
-                        ✅ 일관성 검사: PASSED<br><br>
-                        <strong>커밋 가능한 상태입니다.</strong>
-                    </div>
-                </div>
-            `;
-            
-            // Step 5: Document
-            html += `
-                <div class="card">
-                    <h3>📝 Stage 5: Auto Document</h3>
-                    <div class="result-box info show">
-                        <strong>자동 문서화 완료</strong><br><br>
-                        ✓ .vibe/specs/SPEC-${Date.now().toString().slice(-4)}.yaml 생성됨<br>
-                        <span class="text-muted">"vibe why" 명령으로 이 코드의 맥락을 언제든 조회할 수 있습니다.</span>
-                    </div>
-                </div>
-            `;
-            
-            document.getElementById('demoResults').innerHTML = html;
-            
-            // Activate pipeline steps
-            document.querySelectorAll('.pipeline-step').forEach(el => el.classList.add('active'));
-        }
-    </script>
+    let html = '';
+    
+    html += `<div class="card" style="margin-top:24px"><h3>📋 Stage 1: Spec Gate</h3>
+        <div class="result-box info show">
+            <strong>자동 생성된 스펙:</strong><br><br>
+            <span class="text-accent">feature:</span> ${document.getElementById('demoInput').value}<br>
+            <span class="text-accent">constraints:</span> [C001] OAuth 금지 적용됨<br><br>
+            <span class="text-success">✓ 스펙 분석 완료</span>
+        </div></div>`;
+    
+    if (hasConflict) {
+        html += `<div class="card"><h3>🔍 Stage 2: Verify Gate</h3>
+            <div class="result-box warn show">
+                <strong class="text-warning">⚠️ 정책 충돌 감지</strong><br><br>
+                <strong>충돌:</strong> [C001] OAuth/소셜 로그인 사용 금지<br>
+                <strong>사유:</strong> 보안 정책상 외부 IdP 연동 불가<br><br>
+                <span class="text-success">→ 자체 인증으로 변경하여 진행</span>
+            </div></div>`;
+    } else {
+        html += `<div class="card"><h3>🔍 Stage 2: Verify Gate</h3>
+            <div class="result-box success show">
+                <strong class="text-success">✅ 정책 충돌 없음</strong><br>
+                기존 결정/정책과 호환됩니다.
+            </div></div>`;
+    }
+    
+    html += `<div class="card"><h3>⚡ Stage 3: Generate</h3>
+        <div class="result-box info show">
+            <strong>코드 생성 완료</strong><br>확정된 스펙을 기반으로 코드를 생성했습니다.
+        </div></div>`;
+    
+    html += `<div class="card"><h3>✅ Stage 4: Validate Gate</h3>
+        <div class="result-box success show">
+            <strong class="text-success">✅ 모든 검증 통과</strong><br><br>
+            ✅ 정책 검사: PASSED<br>
+            ✅ 보안 검사: PASSED<br>
+            ✅ 일관성 검사: PASSED<br><br>
+            <strong>커밋 가능한 상태입니다.</strong>
+        </div></div>`;
+    
+    html += `<div class="card"><h3>📝 Stage 5: Auto Document</h3>
+        <div class="result-box info show">
+            <strong>자동 문서화 완료</strong><br><br>
+            ✓ .vibe/specs/SPEC-${Date.now().toString().slice(-4)}.yaml 생성됨<br>
+            <span class="text-muted">"vibe why" 명령으로 맥락 조회 가능</span>
+        </div></div>`;
+    
+    document.getElementById('demoResults').innerHTML = html;
+    document.querySelectorAll('.pipe-step').forEach(s => s.classList.add('active'));
+}
+</script>
+
 </body>
 </html>
