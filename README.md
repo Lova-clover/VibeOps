@@ -1,70 +1,155 @@
-# VibeMemory
+# 🚀 VibeOps
 
-AI 컨텍스트 영속화 시스템
+> **바이브 코딩을 위한 DevOps**  
+> AI에게 말하기 전에, 먼저 스펙을 확정하라
 
-## 문제
+## 🔥 핵심 메시지
 
-바이브 코딩에서 AI는 이전 대화를 기억하지 못합니다.
+**"바이브 코딩에도 프로세스가 필요하다"**
 
-- 30분 전에 "OAuth 금지"라고 했는데 AI가 OAuth 코드를 생성
-- 어제 합의한 아키텍처를 오늘 AI가 전혀 모름
-- 왜 이렇게 만들었는지 아무도 기억 못함
+바이브 코딩은 빠르지만, 프로세스가 없으면 **기술 부채**가 쌓입니다.  
+VibeOps는 AI 코딩에 **5단계 품질 게이트**를 도입하여 이 문제를 해결합니다.
 
-## 해결책
+---
 
-프로젝트에 `.vibe` 디렉토리를 추가하여 컨텍스트를 영구 저장합니다.
+## ❌ 문제: 바이브 코딩의 숨겨진 위험
 
+현재 바이브 코딩 플로우:
 ```
-.vibe/
-├── context.yaml      # 프로젝트 정보, 기술 스택
-├── constraints.yaml  # 금지 규칙 (OAuth 금지 등)
-├── decisions.yaml    # 기술 결정 사항과 이유
-└── history/          # 세션별 변경 이력
+"만들어줘" → AI가 코드 생성 → 커밋 → (끝?)
 ```
 
-## 핵심 기능
+**이게 뭐가 문제인가요?**
 
-- **Context Injection**: AI 세션마다 프로젝트 맥락 자동 주입
-- **Constraint Guard**: 금지 규칙 위반 실시간 감지
-- **Decision Capture**: 기술 결정 자동 기록
-- **Intent Tracking**: "왜 이렇게 만들었는지" 추적
+| 문제 | 설명 |
+|------|------|
+| 🎯 **의도 불일치** | AI가 개발자의 의도를 추측 → 원하는 것과 다른 코드 생성 |
+| 🔄 **일관성 붕괴** | 매번 다른 스타일/패턴 → 코드베이스 혼란 |
+| 📝 **문서화 부재** | 왜 이렇게 만들었는지 사라짐 → 유지보수 지옥 |
+| 🐛 **품질 저하** | 검토 없이 빠른 생성 → 버그/보안 취약점 누적 |
 
-## 데모 실행
+---
 
-```bash
-cd demo
-python vibememory_core.py
+## ✅ 해결책: 5-Stage Pipeline
+
+```
+┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
+│  SPEC   │───▶│ VERIFY  │───▶│ GENERATE│───▶│VALIDATE │───▶│DOCUMENT │
+│  Gate   │    │  Gate   │    │         │    │  Gate   │    │         │
+└─────────┘    └─────────┘    └─────────┘    └─────────┘    └─────────┘
+   스펙 정의      충돌 검증      코드 생성       품질 검증      자동 문서화
 ```
 
-## 사용법
+### Stage 1: Spec Gate (스펙 정의)
+개발자의 모호한 요청을 **구조화된 스펙**으로 변환
+
+```yaml
+# vibespec.yaml
+feature: 로그인 기능
+requirements:
+  - 이메일/비밀번호 인증
+  - JWT 토큰 발급 (24시간 유효)
+  - 비밀번호 bcrypt 해싱
+constraints:
+  - OAuth 사용 금지 (C001)
+  - 외부 CDN 금지
+```
+
+### Stage 2: Verify Gate (충돌 검증)
+새 요청이 **기존 결정과 충돌하는지** 자동 검증
+
+```
+⚠️ 충돌 감지!
+[새 요청] "Google 로그인 추가"
+[기존 제약] C001: OAuth 사용 금지
+→ 진행하려면 제약 해제가 필요합니다
+```
+
+### Stage 3: Generate (코드 생성)
+확정된 스펙을 기반으로 AI가 코드 생성
+
+### Stage 4: Validate Gate (품질 검증)
+생성된 코드의 **자동 품질 검증**
+
+- ✅ 정책 준수 검사
+- ✅ 코딩 스타일 일관성
+- ✅ 보안 취약점 스캔
+
+### Stage 5: Auto Document (자동 문서화)
+스펙과 결정 사항을 **자동으로 문서화**
+
+---
+
+## 📊 기대 효과 (ROI)
+
+| 지표 | 개선율 | 설명 |
+|------|--------|------|
+| **재작업률** | 70%↓ | 스펙 합의로 의도 불일치 방지 |
+| **문서화 시간** | 90%↓ | 자동 문서 생성 |
+| **온보딩 시간** | 80%↓ | 스펙 히스토리로 맥락 즉시 파악 |
+| **기술 부채** | 60%↓ | 품질 게이트로 불량 코드 차단 |
+
+---
+
+## 🔗 링크
+
+- **🎨 데모 사이트**: [vibe-memory-ivory.vercel.app](https://vibe-memory-ivory.vercel.app)
+- **📄 기획서**: [VibeOps_기획서.html](./VibeOps_기획서.html)
+
+---
+
+## 💡 핵심 차별점
+
+| 기존 도구 | VibeOps |
+|----------|---------|
+| 바로 코드 생성 | **스펙 먼저 확정** |
+| 수동 검증 | **자동 품질 게이트** |
+| 문서화 없음 | **자동 문서화** |
+| 일회성 | **누적 학습** |
+| 단순 규칙 저장 | **5단계 파이프라인** |
+
+---
+
+## 🛠️ 사용법
 
 ```bash
 # 프로젝트 초기화
-python vibe_cli.py init
+vibe init
 
-# 현재 컨텍스트 확인 (AI에 주입할 프롬프트)
-python vibe_cli.py inject
+# 기능 요청 (Spec Gate 시작)
+vibe flow "로그인 기능 만들어줘"
+# → 스펙 자동 생성 및 확인 요청
 
-# 코드 파일 정책 검사
-python vibe_cli.py check your_code.py
+# 충돌 검사 (Verify Gate)
+vibe verify
+# → 기존 결정과 충돌 여부 확인
 
-# 금지 규칙 추가
-python vibe_cli.py add-constraint "외부 CDN 사용 금지"
+# 코드 검증 (Validate Gate)
+vibe validate generated_code.py
+# → 정책 준수, 스타일 일관성 검사
 ```
 
-## 예시: 금지 규칙 위반 감지
+---
 
-```yaml
-# .vibe/constraints.yaml
-constraints:
-  - id: C001
-    rule: OAuth 사용 금지
-    severity: critical
-    keywords: [oauth, google.oauth2]
+## 📁 프로젝트 구조
+
+```
+.vibe/
+├── specs/           # 기능별 스펙 파일
+│   ├── login.yaml
+│   └── payment.yaml
+├── constraints.yaml # 프로젝트 제약 조건
+├── decisions.yaml   # 기술 결정 히스토리
+└── pipeline.yaml    # 파이프라인 설정
 ```
 
-코드에 `from google.oauth2 import credentials`가 있으면 즉시 경고합니다.
+---
 
-## 라이선스
+## 📜 라이선스
 
 MIT License
+
+---
+
+> **"빠른 것만으로는 부족하다. 바이브 코딩에도 품질이 필요하다."**  
+> VibeOps - DevOps for Vibe Coding
