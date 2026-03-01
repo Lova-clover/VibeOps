@@ -1,155 +1,119 @@
 # 🚀 VibeOps
 
-> **바이브 코딩을 위한 DevOps**  
-> AI에게 말하기 전에, 먼저 스펙을 확정하라
+> 바이브 코딩을 위한 품질 파이프라인 PoC (DevOps 관점)  
+> "AI에게 코드를 요청하기 전에, 먼저 스펙을 확정하라."
 
 ## 🔥 핵심 메시지
+**"바이브 코딩에도 품질 관리 프로세스가 필요하다."**
 
-**"바이브 코딩에도 프로세스가 필요하다"**
+바이브 코딩은 빠르지만, 프로세스가 없으면 기술 부채가 누적됩니다.  
+VibeOps는 `Spec -> Verify -> Generate -> Validate -> Document` 흐름으로 이를 통제 가능한 프로세스로 전환합니다.
 
-바이브 코딩은 빠르지만, 프로세스가 없으면 **기술 부채**가 쌓입니다.  
-VibeOps는 AI 코딩에 **5단계 품질 게이트**를 도입하여 이 문제를 해결합니다.
+## 📌 개요
+VibeOps는 바이브 코딩 과정에 `Spec -> Verify -> Generate -> Validate -> Document` 흐름을 적용해,
+의도 불일치/정책 위반/맥락 소실을 줄이기 위한 개념 증명(Proof of Concept) 저장소입니다.
 
----
+핵심은 "더 빠르게 생성"이 아니라, "생성 전후 통제 가능한 개발 프로세스"입니다.
 
-## ❌ 문제: 바이브 코딩의 숨겨진 위험
+## 🔗 문서 및 링크
+- 🌐 데모 사이트: [vibeops-rho.vercel.app](https://vibeops-rho.vercel.app/)
+- 📄 1차 기획서(PDF): [VibeOps 기획서.pdf](./VibeOps 기획서.pdf)
+- 🏁 최종 기획서(PDF): [VibeOps 최종 기획서.pdf](./VibeOps 최종 기획서.pdf)
+- 🎬 데모 영상: [VibeOps데모영상.mp4](./VibeOps데모영상.mp4)
+- 🗂️ 제출본(해커톤 PDF): [월간 해커톤_ 바이_VibeOps - 바이브 코딩을 위한 품질 파이프라인__성주__20260301.pdf](./월간 해커톤_ 바이_VibeOps - 바이브 코딩을 위한 품질 파이프라인__성주__20260301.pdf)
 
-현재 바이브 코딩 플로우:
-```
-"만들어줘" → AI가 코드 생성 → 커밋 → (끝?)
-```
-
-**이게 뭐가 문제인가요?**
-
-| 문제 | 설명 |
-|------|------|
-| 🎯 **의도 불일치** | AI가 개발자의 의도를 추측 → 원하는 것과 다른 코드 생성 |
-| 🔄 **일관성 붕괴** | 매번 다른 스타일/패턴 → 코드베이스 혼란 |
-| 📝 **문서화 부재** | 왜 이렇게 만들었는지 사라짐 → 유지보수 지옥 |
-| 🐛 **품질 저하** | 검토 없이 빠른 생성 → 버그/보안 취약점 누적 |
-
----
-
-## ✅ 해결책: 5-Stage Pipeline
-
-```
-┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐    ┌─────────┐
-│  SPEC   │───▶│ VERIFY  │───▶│ GENERATE│───▶│VALIDATE │───▶│DOCUMENT │
-│  Gate   │    │  Gate   │    │         │    │  Gate   │    │         │
-└─────────┘    └─────────┘    └─────────┘    └─────────┘    └─────────┘
-   스펙 정의      충돌 검증      코드 생성       품질 검증      자동 문서화
-```
-
-### Stage 1: Spec Gate (스펙 정의)
-개발자의 모호한 요청을 **구조화된 스펙**으로 변환
-
-```yaml
-# vibespec.yaml
-feature: 로그인 기능
-requirements:
-  - 이메일/비밀번호 인증
-  - JWT 토큰 발급 (24시간 유효)
-  - 비밀번호 bcrypt 해싱
-constraints:
-  - OAuth 사용 금지 (C001)
-  - 외부 CDN 금지
+## 📁 저장소 구성
+```text
+.
+├─ web/
+│  └─ index.html                 # 정적 데모 페이지 (브라우저 인터랙션)
+├─ demo/
+│  ├─ vibe_cli.py                # CLI 인터페이스 PoC
+│  ├─ vibememory_core.py         # 컨텍스트/제약 검사 코어 PoC
+│  └─ .vibe/                     # 샘플 컨텍스트 데이터
+│     ├─ context.yaml
+│     ├─ constraints.yaml
+│     ├─ decisions.yaml
+│     ├─ glossary.yaml
+│     └─ history/2026-01-20-login.yaml
+├─ VibeOps 기획서.pdf
+├─ VibeOps 최종 기획서.pdf
+└─ README.md
 ```
 
-### Stage 2: Verify Gate (충돌 검증)
-새 요청이 **기존 결정과 충돌하는지** 자동 검증
+## ✅ 실제 구현된 기능 (코드 기준)
+아래는 현재 저장소에서 확인 가능한 기능만 정리한 목록입니다.
 
-```
-⚠️ 충돌 감지!
-[새 요청] "Google 로그인 추가"
-[기존 제약] C001: OAuth 사용 금지
-→ 진행하려면 제약 해제가 필요합니다
-```
+### 1) 🧠 컨텍스트 로드 및 프롬프트 생성 (`demo/vibememory_core.py`)
+- `.vibe/context.yaml`, `.vibe/constraints.yaml`, `.vibe/decisions.yaml` 로드
+- `ProjectContext` 객체 구성
+- AI 시스템 프롬프트 문자열 생성 (`generate_ai_prompt`)
 
-### Stage 3: Generate (코드 생성)
-확정된 스펙을 기반으로 AI가 코드 생성
+### 2) 🛡️ 제약 조건 위반 감지 (`ConstraintChecker`)
+- 텍스트에서 키워드 기반 위반 탐지
+- 위반 ID/심각도/매칭 키워드/주변 컨텍스트 반환
+- 사람이 읽기 쉬운 경고 메시지 포맷팅 (`format_warning`)
 
-### Stage 4: Validate Gate (품질 검증)
-생성된 코드의 **자동 품질 검증**
+### 3) 🧰 CLI 초기화 기능 (`demo/vibe_cli.py`)
+- `init` 명령으로 `.vibe` 템플릿 구조 생성
+- `context.yaml`, `constraints.yaml`, `decisions.yaml`, `.vibeignore` 자동 생성
 
-- ✅ 정책 준수 검사
-- ✅ 코딩 스타일 일관성
-- ✅ 보안 취약점 스캔
+### 4) 🖥️ 웹 데모 (`web/index.html`)
+- 문제/해결/효과 구조의 단일 페이지 데모
+- 입력값 기반 5단계 파이프라인 시뮬레이션 UI
+- 정책 충돌 예시와 통과 예시를 브라우저에서 시각화
 
-### Stage 5: Auto Document (자동 문서화)
-스펙과 결정 사항을 **자동으로 문서화**
+## ⚠️ 현재 상태 (PoC 범위)
+일부 CLI 명령은 "개념 증명 단계"로 남아 있습니다.
 
----
+| 항목 | 상태 | 비고 |
+|---|---|---|
+| `vibe init` | 동작 | `.vibe` 초기 템플릿 생성 |
+| `vibe inject` | 제한 | `VibeOps_core` 모듈 참조(현재 파일명과 불일치) |
+| `vibe check <file>` | 제한 | 위와 동일한 import 경로 이슈 |
+| `vibe why <file>` | 안내 출력 | 히스토리 조회 UX만 제공(실조회 미구현) |
+| `vibe add-constraint` | 입력 가능 | 인터랙티브 입력 후 실제 저장은 생략 |
 
-## 📊 기대 효과
+## 🛠️ 실행 방법
 
-| 지표 | 개선 방향 | 설명 |
-|------|----------|------|
-| **재작업률** | ↓ 감소 | 스펙 합의로 의도 불일치 사전 방지 |
-| **문서화 부담** | ↓ 감소 | 스펙 자동 생성 및 이력 관리 |
-| **온보딩 시간** | ↓ 단축 | 스펙 히스토리로 맥락 즉시 파악 가능 |
-| **코드 품질** | ↑ 향상 | 품질 게이트로 정책 위반 사전 차단 |
-
----
-
-## 🔗 링크
-
-- **🎨 데모 사이트**: [vibeops-rho.vercel.app](https://vibeops-rho.vercel.app/)
-- **📄 기획서**: [VibeOps_기획서.html](./VibeOps_기획서.html)
-
----
-
-## 💡 핵심 차별점
-
-| 기존 도구 | VibeOps |
-|----------|---------|
-| 바로 코드 생성 | **스펙 먼저 확정** |
-| 수동 검증 | **자동 품질 게이트** |
-| 문서화 없음 | **자동 문서화** |
-| 일회성 | **누적 학습** |
-| 단순 규칙 저장 | **5단계 파이프라인** |
-
----
-
-## 🛠️ 사용법
-
+### 1) 웹 데모 실행
 ```bash
-# 프로젝트 초기화
-vibe init
-
-# 기능 요청 (Spec Gate 시작)
-vibe flow "로그인 기능 만들어줘"
-# → 스펙 자동 생성 및 확인 요청
-
-# 충돌 검사 (Verify Gate)
-vibe verify
-# → 기존 결정과 충돌 여부 확인
-
-# 코드 검증 (Validate Gate)
-vibe validate generated_code.py
-# → 정책 준수, 스타일 일관성 검사
+cd web
+python -m http.server 8000
 ```
+브라우저에서 `http://localhost:8000` 접속
+
+### 2) 코어 데모 실행
+```bash
+cd demo
+pip install pyyaml
+set PYTHONUTF8=1
+python vibememory_core.py
+```
+
+### 3) CLI 확인
+```bash
+cd demo
+python vibe_cli.py --help
+python vibe_cli.py init
+```
+
+## 🔄 5단계 파이프라인 개념
+```text
+SPEC -> VERIFY -> GENERATE -> VALIDATE -> DOCUMENT
+```
+- Spec: 요청을 구조화된 스펙으로 정리
+- Verify: 기존 제약/결정과 충돌 검사
+- Generate: 합의된 맥락 기반 코드 생성
+- Validate: 정책/일관성/보안 검증
+- Document: 스펙/결정/히스토리 기록
+
+## 🎯 프로젝트 목표
+- 바이브 코딩의 속도는 유지
+- 품질 리스크(정책 위반, 재작업, 맥락 소실)는 사전 차단
+- 사람 중심 리뷰를 "반복 탐색"이 아닌 "핵심 판단"에 집중
 
 ---
 
-## 📁 프로젝트 구조
-
-```
-.vibe/
-├── specs/           # 기능별 스펙 파일
-│   ├── login.yaml
-│   └── payment.yaml
-├── constraints.yaml # 프로젝트 제약 조건
-├── decisions.yaml   # 기술 결정 히스토리
-└── pipeline.yaml    # 파이프라인 설정
-```
-
----
-
-## 📜 라이선스
-
-MIT License
-
----
-
-> **"빠른 것만으로는 부족하다. 바이브 코딩에도 품질이 필요하다."**  
-> VibeOps - DevOps for Vibe Coding
+> 빠른 생성만으로는 부족합니다.  
+> VibeOps는 실무에 적용 가능한 품질 운영체계를 탐색하는 PoC입니다.
