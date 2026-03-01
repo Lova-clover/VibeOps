@@ -17,10 +17,10 @@ VibeOps는 바이브 코딩 과정에 `Spec -> Verify -> Generate -> Validate ->
 
 ## 🔗 문서 및 링크
 - 🌐 데모 사이트: [vibeops-rho.vercel.app](https://vibeops-rho.vercel.app/)
-- 📄 1차 기획서(PDF): [VibeOps 기획서.pdf](./VibeOps 기획서.pdf)
-- 🏁 최종 기획서(PDF): [VibeOps 최종 기획서.pdf](./VibeOps 최종 기획서.pdf)
+- 📄 1차 기획서(PDF): [VibeOps 기획서.pdf](https://github.com/Lova-clover/VibeOps/blob/main/VibeOps%20%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf)
+- 🏁 최종 기획서(PDF): [VibeOps 최종 기획서.pdf](https://github.com/Lova-clover/VibeOps/blob/main/VibeOps%20%EC%B5%9C%EC%A2%85%20%EA%B8%B0%ED%9A%8D%EC%84%9C.pdf)
 - 🎬 데모 영상: [VibeOps데모영상.mp4](./VibeOps데모영상.mp4)
-- 🗂️ 제출본(해커톤 PDF): [월간 해커톤_ 바이_VibeOps - 바이브 코딩을 위한 품질 파이프라인__성주__20260301.pdf](./월간 해커톤_ 바이_VibeOps - 바이브 코딩을 위한 품질 파이프라인__성주__20260301.pdf)
+- 🗂️ 제출본(해커톤 PDF): [월간 해커톤_ 바이_VibeOps - 바이브 코딩을 위한 품질 파이프라인__성주__20260301.pdf](https://github.com/Lova-clover/VibeOps/blob/main/%EC%9B%94%EA%B0%84%20%ED%95%B4%EC%BB%A4%ED%86%A4_%20%EB%B0%94%EC%9D%B4_VibeOps%20-%20%EB%B0%94%EC%9D%B4%EB%B8%8C%20%EC%BD%94%EB%94%A9%EC%9D%84%20%EC%9C%84%ED%95%9C%20%ED%92%88%EC%A7%88%20%ED%8C%8C%EC%9D%B4%ED%94%84%EB%9D%BC%EC%9D%B8__%EC%84%B1%EC%A3%BC__20260301.pdf)
 
 ## 📁 저장소 구성
 ```text
